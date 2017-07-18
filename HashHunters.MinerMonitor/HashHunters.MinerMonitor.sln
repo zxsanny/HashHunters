@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashHunters.MinerMonitor.Client", "HashHunters.MinerMonitor.Client\HashHunters.MinerMonitor.Client.csproj", "{D4AC930F-927E-4E47-B426-DBF23F0D837C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashHunters.MinerMonitor.Common", "HashHunters.MinerMonitor.Common\HashHunters.MinerMonitor.Common.csproj", "{02E4220A-8609-4AEB-9267-5892BDB13ADD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashHunters.MinerMonitor.Server", "HashHunters.MinerMonitor.Server\HashHunters.MinerMonitor.Server.csproj", "{1D9723C3-F09B-4633-B0D2-D6E85855DEFF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D4AC930F-927E-4E47-B426-DBF23F0D837C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4AC930F-927E-4E47-B426-DBF23F0D837C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4AC930F-927E-4E47-B426-DBF23F0D837C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4AC930F-927E-4E47-B426-DBF23F0D837C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02E4220A-8609-4AEB-9267-5892BDB13ADD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02E4220A-8609-4AEB-9267-5892BDB13ADD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02E4220A-8609-4AEB-9267-5892BDB13ADD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02E4220A-8609-4AEB-9267-5892BDB13ADD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D9723C3-F09B-4633-B0D2-D6E85855DEFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D9723C3-F09B-4633-B0D2-D6E85855DEFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D9723C3-F09B-4633-B0D2-D6E85855DEFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D9723C3-F09B-4633-B0D2-D6E85855DEFF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
