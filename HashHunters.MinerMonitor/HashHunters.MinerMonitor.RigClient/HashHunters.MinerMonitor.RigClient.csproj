@@ -7,8 +7,8 @@
     <ProjectGuid>{D4AC930F-927E-4E47-B426-DBF23F0D837C}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HashHunters.MinerMonitor.Client</RootNamespace>
-    <AssemblyName>HashHunters.MinerMonitor.Client</AssemblyName>
+    <RootNamespace>HashHunters.MinerMonitor.RigClient</RootNamespace>
+    <AssemblyName>HashHunters.MinerMonitor.RigClient</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -44,6 +44,7 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />

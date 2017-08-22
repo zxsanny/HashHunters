@@ -2,7 +2,7 @@
 using System.Configuration;
 using System.Net;
 
-namespace HashHunters.MinerMonitor.Common
+namespace HashHunters.MinerMonitor.Common.Providers
 {
     public class ConfigProvider : IConfigProvider
     {
