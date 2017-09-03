@@ -42,20 +42,22 @@ namespace HashHunters.SafeTemperature
         IConfigProvider ConfigProvider;
         IHardwareInfoProvider HardwareProvider;
         IIO IO;
-        MainForm Form;
 
-        public WindowsApp(IConfigProvider configProvider, MainForm form, IHardwareInfoProvider hardwareProvider, IIO io)
+        public WindowsApp(IConfigProvider configProvider, IHardwareInfoProvider hardwareProvider, IIO io)
         {
             ConfigProvider = configProvider;
             HardwareProvider = hardwareProvider;
             IO = io;
-            Form = form;
         }
 
         public void Run()
         {
             RunMonitor();
-            Application.Run(Form);
+            IO.ViewForm();
+        }
+
+        public void Stop()
+        {
         }
 
         void RunMonitor()
@@ -66,7 +68,7 @@ namespace HashHunters.SafeTemperature
                 {
                     var maxTemp = IO.GetMaxTemperature();
                     var hw = HardwareProvider.GetHardware();
-                    IO.SwitchAlert(hw.GPUs.Any(x => x.Temperature > maxTemp));
+                    IO.SwitchAlert(hw.GPUInfos.Any(x => x.Temperature > maxTemp));
                     Thread.Sleep(2000);
                 }
             });

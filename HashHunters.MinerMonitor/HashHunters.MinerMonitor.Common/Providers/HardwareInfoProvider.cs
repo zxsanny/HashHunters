@@ -2,17 +2,18 @@
 using HashHunters.MinerMonitor.Common.DTO;
 using HashHunters.MinerMonitor.Common.Interfaces;
 using System.Linq;
+using HashHunters.MinerMonitor.Common.Enums;
+using HashHunters.MinerMonitor.Common.Extensions;
 using OpenHardwareMonitor.Hardware;
 
 namespace HashHunters.MinerMonitor.Common.Providers
 {
     public class HardwareInfoProvider : IHardwareInfoProvider
     {
-        Computer comp;
+        private readonly Computer comp;
         public HardwareInfoProvider()
         {
-            comp = new Computer();
-            comp.GPUEnabled = true;
+            comp = new Computer { GPUEnabled = true };
             comp.Open();
         }
 
@@ -22,21 +23,18 @@ namespace HashHunters.MinerMonitor.Common.Providers
             {
                 hw.Update();
                 hw.GetReport();
-
-                return new GPUInfo
-                {
-                    Id = hw.Identifier.ToString(),
-                    Name = hw.Name,
-                    Temperature = (double)hw.Sensors.FirstOrDefault(x => x.SensorType == SensorType.Temperature).Value,
-                    FanPercent = (double)hw.Sensors.FirstOrDefault(x => x.SensorType == SensorType.Control).Value
-                };
+                var sensorsDict = hw.Sensors.ToDictionary(x => Enum.Parse(typeof(SensorEnum), x.Name.TrimAll() + x.SensorType));
+                return new GPUInfo(hw.Identifier.ToString(), hw.Name, 
+                    sensorsDict[SensorEnum.GPUCoreTemperature].Value.GetValueOrDefault(), 
+                    sensorsDict[SensorEnum.GPUFanControl].Value.GetValueOrDefault(),
+                    sensorsDict[SensorEnum.GPUCoreLoad].Value.GetValueOrDefault());
             }).ToList();
 
             var machine = new HardwareInfo
             {
                 MachineName = Environment.MachineName,
                 MachineCurrentTime = DateTime.Now,
-                GPUs = gpus
+                GPUInfos = gpus
             };
             return machine;
         }

@@ -56,9 +56,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EventHub.cs" />
+    <Compile Include="DTO\Enums\EventType.cs" />
+    <Compile Include="DTO\Enums\SensorEnum.cs" />
+    <Compile Include="DTO\MonitorEvent.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Interfaces\IEventHub.cs" />
     <Compile Include="Providers\ConfigProvider.cs" />
     <Compile Include="AutofacConfig.cs" />
-    <Compile Include="DTO\HardwareInfo.cs" />
+    <Compile Include="DTO\HardwareEvent.cs" />
     <Compile Include="Extensions\IntExtensions.cs" />
     <Compile Include="Interfaces\IConfigProvider.cs" />
     <Compile Include="Interfaces\IApp.cs" />

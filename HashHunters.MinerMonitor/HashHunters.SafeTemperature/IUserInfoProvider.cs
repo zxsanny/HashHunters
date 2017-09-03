@@ -1,4 +1,5 @@
 ﻿using HashHunters.SafeTemperature.Extensions;
+using System.Windows.Forms;
 
 namespace HashHunters.SafeTemperature
 {
@@ -6,6 +7,7 @@ namespace HashHunters.SafeTemperature
     {
         double GetMaxTemperature();
         void SwitchAlert(bool enabled);
+        void ViewForm();
     }
 
     public class FormInputOutput : IIO
@@ -15,6 +17,11 @@ namespace HashHunters.SafeTemperature
         public FormInputOutput(MainForm form)
         {
             Form = form;
+        }
+
+        public void ViewForm()
+        {
+            Application.Run(Form);
         }
 
         public double GetMaxTemperature()

@@ -8,8 +8,8 @@ namespace HashHunters.MinerMonitor.Common.Providers
     {
         public IPEndPoint GetIpEndPoint()
         {
-            var ip = ConfigurationManager.AppSettings["IP"];
-            var port = ConfigurationManager.AppSettings["Port"];
+            var ip = ConfigurationManager.AppSettings["ServerIP"];
+            var port = ConfigurationManager.AppSettings["ServerPort"];
             return new IPEndPoint(IPAddress.Parse(ip), int.Parse(port));
         }
     }

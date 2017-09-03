@@ -28,7 +28,10 @@ namespace HashHunters.MinerMonitor.Server
 
             Console.WriteLine("\nPress any key to close server.");
             Console.ReadKey(true);
+        }
 
+        public void Stop()
+        {
             NetworkComms.Shutdown();
         }
 

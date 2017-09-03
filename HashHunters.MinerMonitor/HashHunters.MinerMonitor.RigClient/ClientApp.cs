@@ -1,30 +1,54 @@
-﻿using HashHunters.MinerMonitor.Common.Interfaces;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
+using HashHunters.MinerMonitor.Common.DTO;
+using HashHunters.MinerMonitor.Common.DTO.Enums;
+using HashHunters.MinerMonitor.Common.Interfaces;
 using NetworkCommsDotNet;
-using System;
 
-namespace HashHunters.MinerMonitor.Client
+namespace HashHunters.MinerMonitor.RigClient
 {
     public class ClientApp : IApp
     {
-        IConfigProvider ConfigProvider { get; set; }
-        IHardwareInfoProvider MachineInfoProvider { get; set; }
+        private IConfigProvider ConfigProvider { get; }
+        private IHardwareInfoProvider HardwareProvider { get; }
+        private IEventHub EventHub { get; }
 
-        public ClientApp(IConfigProvider configProvider, IHardwareInfoProvider machineInfoProvider)
+        private static readonly CancellationTokenSource CancelTokenSource = new CancellationTokenSource();
+        public static CancellationToken CancelToken => CancelTokenSource.Token;
+
+        public ClientApp(IConfigProvider configProvider, IHardwareInfoProvider hardwareProvider, IEventHub eventHub)
         {
             ConfigProvider = configProvider;
-            MachineInfoProvider = machineInfoProvider;
+            HardwareProvider = hardwareProvider;
+            EventHub = eventHub;
+
+            var ipEndPoint = ConfigProvider.GetIpEndPoint();
+            EventHub.Subscribe(e =>
+            {
+                NetworkComms.SendObject(e.Type.ToString(), ipEndPoint.Address.ToString(), ipEndPoint.Port, e);
+            });
+            EventHub.Subscribe(e =>
+            {
+                Console.WriteLine(e.ToString());
+            });
+            EventHub.Start(CancelToken);
         }
 
         public void Run()
         {
-            var ipEndPoint = ConfigProvider.GetIpEndPoint();
-            
-            var hardware = MachineInfoProvider.GetHardware();
+            while (!CancelTokenSource.IsCancellationRequested)
+            {
+                var hw = HardwareProvider.GetHardware();
+                var he = new HardwareEvent(EventType.SensorsInfo, hw);
+                EventHub.SendEvent(he);
+                Thread.Sleep(30000);
+            }
+        }
 
-            NetworkComms.SendObject("HardwareInfo", ipEndPoint.Address.ToString(), ipEndPoint.Port, hardware);
-
-            
-
+        public void Stop()
+        {
+            CancelTokenSource.Cancel();
             NetworkComms.Shutdown();
         }
     }

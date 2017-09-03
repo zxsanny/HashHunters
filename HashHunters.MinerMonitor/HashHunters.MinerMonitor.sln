@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashHunters.MinerMonitor.Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashHunters.MinerMonitor.Server", "HashHunters.MinerMonitor.Server\HashHunters.MinerMonitor.Server.csproj", "{1D9723C3-F09B-4633-B0D2-D6E85855DEFF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetHardwareInfo", "GetHardwareCodeproject\GetHardwareInfo.csproj", "{F80735EA-986A-4BCE-8E15-34195ED01176}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashHunters.MinerMonitor.RigClient", "HashHunters.MinerMonitor.RigClient\HashHunters.MinerMonitor.RigClient.csproj", "{D4AC930F-927E-4E47-B426-DBF23F0D837C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashHunters.SafeTemperature", "HashHunters.SafeTemperature\HashHunters.SafeTemperature.csproj", "{C2FAF282-6BAC-4797-9C1F-216FAA959511}"
@@ -27,10 +25,6 @@ Global
 		{1D9723C3-F09B-4633-B0D2-D6E85855DEFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D9723C3-F09B-4633-B0D2-D6E85855DEFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D9723C3-F09B-4633-B0D2-D6E85855DEFF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F80735EA-986A-4BCE-8E15-34195ED01176}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F80735EA-986A-4BCE-8E15-34195ED01176}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F80735EA-986A-4BCE-8E15-34195ED01176}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F80735EA-986A-4BCE-8E15-34195ED01176}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D4AC930F-927E-4E47-B426-DBF23F0D837C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D4AC930F-927E-4E47-B426-DBF23F0D837C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4AC930F-927E-4E47-B426-DBF23F0D837C}.Release|Any CPU.ActiveCfg = Release|Any CPU

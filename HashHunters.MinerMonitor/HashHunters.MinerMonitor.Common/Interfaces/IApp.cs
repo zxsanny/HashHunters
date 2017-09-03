@@ -3,5 +3,6 @@
     public interface IApp
     {
         void Run();
+        void Stop();
     }
 }
