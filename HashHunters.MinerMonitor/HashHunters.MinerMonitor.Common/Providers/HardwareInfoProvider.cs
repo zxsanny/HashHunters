@@ -23,11 +23,11 @@ namespace HashHunters.MinerMonitor.Common.Providers
             {
                 hw.Update();
                 hw.GetReport();
-                var sensorsDict = hw.Sensors.ToDictionary(x => Enum.Parse(typeof(SensorEnum), x.Name.TrimAll() + x.SensorType));
-                return new GPUInfo(hw.Identifier.ToString(), hw.Name, 
-                    sensorsDict[SensorEnum.GPUCoreTemperature].Value.GetValueOrDefault(), 
-                    sensorsDict[SensorEnum.GPUFanControl].Value.GetValueOrDefault(),
-                    sensorsDict[SensorEnum.GPUCoreLoad].Value.GetValueOrDefault());
+                var temp = hw.Sensors?.FirstOrDefault(x => x.SensorType == SensorType.Temperature && x.Name == "GPUCore")?.Value;
+                var fanPercent = hw.Sensors?.FirstOrDefault(x => x.SensorType == SensorType.Control && x.Name == "GPUFan")?.Value;
+                var load = hw.Sensors?.FirstOrDefault(x => x.SensorType == SensorType.Load && x.Name == "GPUCore")?.Value;
+
+                return new GPUInfo(hw.Identifier.ToString(), hw.Name, temp.GetValueOrDefault(), fanPercent.GetValueOrDefault(), load.GetValueOrDefault());
             }).ToList();
 
             var machine = new HardwareInfo
