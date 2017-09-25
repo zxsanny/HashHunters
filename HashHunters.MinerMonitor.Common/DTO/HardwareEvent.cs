@@ -21,12 +21,30 @@ namespace HashHunters.MinerMonitor.Common.DTO
             FanPercent = fanPercent;
             Load = load;
         }
+
+        public GPUInfo(AMDAPI.GPUInfo amdInfo)
+        {
+            Id = amdInfo.Id;
+            Name = amdInfo.Name;
+            Temperature = amdInfo.Temperature;
+            FanPercent = amdInfo.FanPercent;
+            Load = amdInfo.Load;
+        }
+
+        public GPUInfo(NVidiaAPI.GPUInfo nvInfo)
+        {
+            Id = nvInfo.Id;
+            Name = nvInfo.Name;
+            Temperature = nvInfo.Temperature;
+            FanPercent = nvInfo.FanPercent;
+            Load = nvInfo.Load;
+        }
     }
 
     public class HardwareInfo
     {
-        public string MachineName { get; set; }
-        public DateTime MachineCurrentTime { get; set; }
+        public string Name { get; set; }
+        public DateTime Time { get; set; }
         public List<GPUInfo> GPUInfos { get; set; }
     }
 
@@ -47,7 +65,7 @@ namespace HashHunters.MinerMonitor.Common.DTO
                 return $"{name} {x.Temperature}C fan:{x.FanPercent}% load:{x.Load}%";
             }).ToArray());
 
-            return $"{Info.MachineCurrentTime:yy-MM-dd HH:mm:ss} {Info.MachineName}: {gpuInfos}";
+            return $"{Info.Time:yy-MM-dd HH:mm:ss} {Info.Name}: {gpuInfos}";
         }
     }
 }

@@ -11,7 +11,7 @@ namespace HashHunters.MinerMonitor.Common
         {
             var builder = new ContainerBuilder();
             builder.RegisterType<ConfigProvider>().As<IConfigProvider>();
-            builder.RegisterType<HardwareInfoProvider>().As<IHardwareInfoProvider>().SingleInstance();
+            builder.RegisterType<DirectDllInfoProvider>().As<IHardwareInfoProvider>().SingleInstance();
             builder.RegisterType<EventHub>().As<IEventHub>().SingleInstance();
             foreach (var module in modules)
                 builder.RegisterModule(module);
