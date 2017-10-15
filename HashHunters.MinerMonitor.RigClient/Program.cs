@@ -1,6 +1,8 @@
-﻿using Autofac;
+﻿using System.Diagnostics;
+using Autofac;
 using HashHunters.MinerMonitor.Common;
 using HashHunters.MinerMonitor.Common.Interfaces;
+using Topshelf;
 
 namespace HashHunters.MinerMonitor.RigClient
 {
@@ -11,12 +13,26 @@ namespace HashHunters.MinerMonitor.RigClient
         static void Main(string[] args)
         {
             var container = AutofacConfig.Configure(new ClientModule());
-
-            using (var scope = container.BeginLifetimeScope())
+            HostFactory.Run(hostConfigurator =>
             {
-                App = scope.Resolve<IApp>();
-                App.Run();
-            }
+                hostConfigurator.Service<IApp>(s =>
+                {
+                    s.ConstructUsing(() => container.Resolve<IApp>());
+                    s.WhenStarted(clientApp => clientApp.Run());
+                    s.WhenStopped(clientApp => clientApp.Stop());
+                });
+
+                hostConfigurator.RunAsLocalService();
+                hostConfigurator.DependsOnEventLog().BeforeInstall(settings =>
+                    {
+                        if (!EventLog.SourceExists(settings.ServiceName))
+                            EventLog.CreateEventSource(settings.ServiceName, "RigService");
+                    }).UseAssemblyInfoForServiceInfo();
+
+                hostConfigurator.SetDescription("RigService");
+                hostConfigurator.SetDisplayName("RigService");
+                hostConfigurator.SetServiceName("RigService");
+            });
         }
     }
 

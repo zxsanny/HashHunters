@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.ServiceProcess;
 using System.Threading;
 using System.Threading.Tasks;
+using HashHunters.MinerMonitor.Common;
 using HashHunters.MinerMonitor.Common.DTO;
 using HashHunters.MinerMonitor.Common.Interfaces;
+using HashHunters.MinerMonitor.Common.Providers;
 using NetworkCommsDotNet;
 
-namespace HashHunters.MinerMonitor.RigClient
+namespace HashHunters.MinerMonitor.RigService
 {
-    public class ClientApp : IApp
+    public partial class RigService : ServiceBase
     {
         private IConfigProvider ConfigProvider { get; }
         private IHardwareInfoProvider HardwareProvider { get; }
@@ -25,11 +28,11 @@ namespace HashHunters.MinerMonitor.RigClient
         {
             new Miner("MSIAfterburner"),
             new Miner("EthDcrMiner64", $"-dbg -1 -epool eu1.ethermine.org:4444 -ewal {ETHAddress}.{Environment.MachineName} -epsw x -mode 0 -ftime 10 -dpool dcr.suprnova.cc:3252 " +
-                $"-dwal HashHunters.{Environment.MachineName} -dpsw HashHunters"),
+                                       $"-dwal HashHunters.{Environment.MachineName} -dpsw HashHunters"),
             new Miner("xmr-stak-cpu-notls", "", "C:\\Mining\\XMR\\CPU")
         };
-        
-        public ClientApp(IConfigProvider configProvider, IHardwareInfoProvider hardwareProvider, IEventHub eventHub)
+
+        public void Monitor(IConfigProvider configProvider, IHardwareInfoProvider hardwareProvider, IEventHub eventHub)
         {
             ConfigProvider = configProvider;
             HardwareProvider = hardwareProvider;
@@ -47,14 +50,25 @@ namespace HashHunters.MinerMonitor.RigClient
             EventHub.Start(CancelToken);
         }
 
-        public void Run()
+        public RigService()
+        {
+            InitializeComponent();
+        }
+
+        protected override void OnStart(string[] args)
         {
             Task.Run((Action)MainThread, CancelToken);
+            base.OnStart(args);
+        }
+
+        protected override void OnStop()
+        {
+            CancelTokenSource.Cancel();
+            NetworkComms.Shutdown();
         }
 
         public void MainThread()
         {
-            Process.Start("calc");
             while (true)
             {
                 var processes = Process.GetProcesses();
@@ -83,14 +97,10 @@ namespace HashHunters.MinerMonitor.RigClient
                         }
                     }
                 }
+
                 Thread.Sleep(30000);
             }
         }
 
-        public void Stop()
-        {
-            CancelTokenSource.Cancel();
-            NetworkComms.Shutdown();
-        }
     }
 }
