@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashHunters.NVidiaAPI", "Ha
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashHunters.AMDAPI", "HashHunters.AMDAPI\HashHunters.AMDAPI.csproj", "{CA0F46B7-EC83-42FA-B416-C87A0EE75464}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NVAPISharp", "nvapi.net\NVAPISharp.csproj", "{8E3423A5-88A5-4AA8-B9C6-F90771063D9D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashHunters.Autotrader", "HashHunters.Autotrader\HashHunters.Autotrader.csproj", "{2517A1D5-4A20-42C1-BF41-90CC54D453ED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,10 +49,10 @@ Global
 		{CA0F46B7-EC83-42FA-B416-C87A0EE75464}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA0F46B7-EC83-42FA-B416-C87A0EE75464}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA0F46B7-EC83-42FA-B416-C87A0EE75464}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8E3423A5-88A5-4AA8-B9C6-F90771063D9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8E3423A5-88A5-4AA8-B9C6-F90771063D9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8E3423A5-88A5-4AA8-B9C6-F90771063D9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8E3423A5-88A5-4AA8-B9C6-F90771063D9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2517A1D5-4A20-42C1-BF41-90CC54D453ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2517A1D5-4A20-42C1-BF41-90CC54D453ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2517A1D5-4A20-42C1-BF41-90CC54D453ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2517A1D5-4A20-42C1-BF41-90CC54D453ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
