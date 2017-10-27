@@ -54,7 +54,6 @@ namespace HashHunters.MinerMonitor.RigClient
 
         public void MainThread()
         {
-            Process.Start("calc");
             while (true)
             {
                 var processes = Process.GetProcesses();
@@ -67,12 +66,15 @@ namespace HashHunters.MinerMonitor.RigClient
                         //EventHub.SendEvent(he);
                         try
                         {
-                            Process.Start(new ProcessStartInfo
+                            var process = new Process();
+                            process.StartInfo = new ProcessStartInfo
                             {
                                 FileName = miner.ProgramName,
                                 Arguments = miner.Parameters,
                                 WorkingDirectory = miner.ProgramFolder
-                            });
+                            };
+                            process.Start();
+                            process.PriorityClass = ProcessPriorityClass.High;
                             Console.WriteLine($"{miner.ProgramName} started!");
                             //EventHub.SendEvent(he);
                         }
