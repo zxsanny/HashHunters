@@ -19,23 +19,15 @@ namespace HashHunters.MinerMonitor.RigClient
         private static readonly CancellationTokenSource CancelTokenSource = new CancellationTokenSource();
         public static CancellationToken CancelToken => CancelTokenSource.Token;
 
-        private const string ETHAddress = "0xd70921f415d48f2af3b005c5ec2c2279df7a94a2";
+        private Dictionary<string, MinerConfig> CurrentMiners = new Dictionary<string, MinerConfig>();
 
-        private readonly List<Miner> Miners = new List<Miner>
-        {
-            new Miner("MSIAfterburner"),
-            new Miner("EthDcrMiner64", $"-dbg -1 -epool eu1.ethermine.org:4444 -ewal {ETHAddress}.{Environment.MachineName} -epsw x -mode 0 -ftime 10 -dpool dcr.suprnova.cc:3252 " +
-                $"-dwal HashHunters.{Environment.MachineName} -dpsw HashHunters"),
-            new Miner("xmr-stak-cpu-notls", "", "C:\\Mining\\XMR\\CPU")
-        };
-        
         public ClientApp(IConfigProvider configProvider, IHardwareInfoProvider hardwareProvider, IEventHub eventHub)
         {
             ConfigProvider = configProvider;
             HardwareProvider = hardwareProvider;
             EventHub = eventHub;
 
-            var ipEndPoint = ConfigProvider.GetIpEndPoint();
+            var ipEndPoint = ConfigProvider.IPEndPoint;
             EventHub.Subscribe(e =>
             {
                 NetworkComms.SendObject(e.Type.ToString(), ipEndPoint.Address.ToString(), ipEndPoint.Port, e);
@@ -56,36 +48,69 @@ namespace HashHunters.MinerMonitor.RigClient
         {
             while (true)
             {
-                var processes = Process.GetProcesses();
-                foreach (var miner in Miners)
+                var allProcesses = Process.GetProcesses();
+                foreach (var miner in ConfigProvider.Miners)
                 {
-                    Console.WriteLine($"Ensure {miner.ProgramName} in running");
-                    if (processes.All(x => x.ProcessName != miner.ProgramName))
+                    var processes = allProcesses.Where(p => p.ProcessName.ToLowerInvariant() == miner.Key.ToLowerInvariant()).ToList();
+
+                    var minerConfig = miner.Value.Select(mc => new
                     {
-                        Console.WriteLine($"{miner.ProgramName} is not running! Starting {miner.ProgramName}...");
-                        //EventHub.SendEvent(he);
-                        try
+                        Config = mc,
+                        MinInterval = mc.GetCurrentMinimumInterval()
+                    })
+                    .Where(x => x.MinInterval != null)
+                    .OrderBy(x => x.MinInterval).FirstOrDefault()?.Config;
+
+                    if (minerConfig != null)
+                    {
+                        if (!processes.Any() || !CurrentMiners.ContainsKey(miner.Key) || CurrentMiners[miner.Key] != minerConfig)
                         {
-                            var process = new Process();
-                            process.StartInfo = new ProcessStartInfo
-                            {
-                                FileName = miner.ProgramName,
-                                Arguments = miner.Parameters,
-                                WorkingDirectory = miner.ProgramFolder
-                            };
-                            process.Start();
-                            process.PriorityClass = ProcessPriorityClass.High;
-                            Console.WriteLine($"{miner.ProgramName} started!");
-                            //EventHub.SendEvent(he);
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine($"Starting {miner.ProgramName} failed! Error: {Environment.NewLine}{e}");
-                            //EventHub.SendEvent(he);
+                            StopMiner(processes);
+                            CurrentMiners.Remove(miner.Key);
+                            CurrentMiners.Add(miner.Key, minerConfig);
+
+                            RunMiner(miner.Key, minerConfig);
                         }
                     }
+                    else
+                        StopMiner(processes);
                 }
-                Thread.Sleep(30000);
+                Thread.Sleep(5000);
+            }
+        }
+
+        private static void StopMiner(IEnumerable<Process> processes)
+        {
+            foreach (var p in processes)
+            {
+                Console.WriteLine($"{p.ProcessName} [PID: {p.Id}] stopped!");
+                p.Kill();
+            }
+        }
+
+        private static void RunMiner(string programName, MinerConfig minerConfig)
+        {
+            //EventHub.SendEvent(he);
+            try
+            {
+                var process = new Process
+                {
+                    StartInfo = new ProcessStartInfo
+                    {
+                        FileName = programName,
+                        Arguments = minerConfig.Parameters,
+                        WorkingDirectory = minerConfig.ProgramFolder
+                    }
+                };
+                process.Start();
+                process.PriorityClass = ProcessPriorityClass.High;
+                Console.WriteLine($"{programName} started!");
+                //EventHub.SendEvent(he);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Starting {programName} failed! Error: {Environment.NewLine}{e}");
+                //EventHub.SendEvent(he);
             }
         }
 

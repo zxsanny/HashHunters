@@ -17,7 +17,7 @@ namespace HashHunters.MinerMonitor.Server
 
         public void Run()
         {
-            var ipEndPoint = ConfigProvider.GetIpEndPoint();
+            var ipEndPoint = ConfigProvider.IPEndPoint;
             NetworkComms.AppendGlobalIncomingPacketHandler<string>("Message", PrintIncomingMessage);
 
             Connection.StartListening(ConnectionType.TCP, new IPEndPoint(IPAddress.Any, ipEndPoint.Port));
@@ -37,7 +37,7 @@ namespace HashHunters.MinerMonitor.Server
 
         private static void PrintIncomingMessage(PacketHeader header, Connection connection, string message)
         {
-            Console.WriteLine("A message was received from " + connection.ToString() + " which said '" + message + "'.");
+            Console.WriteLine($"'{message}' was received from {connection}.");
         }
     }
 }

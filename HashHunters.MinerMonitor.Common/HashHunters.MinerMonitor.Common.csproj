@@ -42,6 +42,10 @@
       <HintPath>..\packages\Autofac.4.6.1\lib\net45\Autofac.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -54,14 +58,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DTO\Miner.cs" />
+    <Compile Include="DTO\RigSettings.cs" />
     <Compile Include="EventHub.cs" />
     <Compile Include="DTO\Enums\EventType.cs" />
     <Compile Include="DTO\Enums\SensorEnum.cs" />
     <Compile Include="DTO\MonitorEvent.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Interfaces\IEventHub.cs" />
-    <Compile Include="Providers\ConfigProvider.cs" />
+    <Compile Include="Interfaces\JSONFileConfigProvider.cs" />
     <Compile Include="AutofacConfig.cs" />
     <Compile Include="DTO\HardwareEvent.cs" />
     <Compile Include="Extensions\IntExtensions.cs" />

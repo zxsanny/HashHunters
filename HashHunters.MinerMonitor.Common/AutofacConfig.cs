@@ -10,7 +10,7 @@ namespace HashHunters.MinerMonitor.Common
         public static IContainer Configure(params IModule[] modules)
         {
             var builder = new ContainerBuilder();
-            builder.RegisterType<ConfigProvider>().As<IConfigProvider>();
+            builder.RegisterType<JSONFileConfigProvider>().As<IConfigProvider>();
             builder.RegisterType<DirectDllInfoProvider>().As<IHardwareInfoProvider>().SingleInstance();
             builder.RegisterType<EventHub>().As<IEventHub>().SingleInstance();
             foreach (var module in modules)

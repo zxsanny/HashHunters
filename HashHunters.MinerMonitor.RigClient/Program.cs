@@ -33,7 +33,7 @@ namespace HashHunters.MinerMonitor.RigClient
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
-            builder.RegisterType<ClientApp>().As<IApp>();
+            builder.RegisterType<ClientApp>().As<IApp>().SingleInstance();
         }
     }
 }
