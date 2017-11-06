@@ -43,7 +43,7 @@ namespace HashHunters.MinerMonitor.Common.Interfaces
                                                             "-epsw x -mode 0 -ftime 10 -dpool dcr.suprnova.cc:3252 -dwal HashHunters.HHWORKER01 -dpsw HashHunters"),
 
                                         new MinerConfig($"-dbg -1 -epool eu1.ethermine.org:4444 -ewal {ETH_ADDRESS}.HHWORKER01 " +
-                                            "-di12 -epsw x -mode 0 -ftime 10 -dpool dcr.suprnova.cc:3252 -dwal HashHunters.HHWORKER01 -dpsw HashHunters", "",
+                                            "-di 12 -epsw x -mode 0 -ftime 10 -dpool dcr.suprnova.cc:3252 -dwal HashHunters.HHWORKER01 -dpsw HashHunters", "",
                                             new List<TimeInterval>
                                             {
                                                 new TimeInterval(new TimeSpan(8, 0, 0), new TimeSpan(10, 0, 0)),
