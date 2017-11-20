@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using HashHunters.MinerMonitor.Common.Extensions;
 
 namespace HashHunters.MinerMonitor.Common.DTO
 {
