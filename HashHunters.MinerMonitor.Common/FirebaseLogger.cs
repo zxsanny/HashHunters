@@ -3,30 +3,30 @@ using Firebase.Database;
 using HashHunters.MinerMonitor.Common.Interfaces;
 using System.Threading.Tasks;
 using Firebase.Database.Query;
+using HashHunters.MinerMonitor.Common.Extensions;
 
 namespace HashHunters.MinerMonitor.Common
 {
     public class FirebaseLogger : ILogger
     {
-        private readonly IConfigProvider ConfigProvider;
+        private readonly FirebaseClient FirebaseClient;
+        private ChildQuery Root => FirebaseClient.Child("Rigs").Child(Environment.MachineName);
 
         public FirebaseLogger(IConfigProvider configProvider)
         {
-            ConfigProvider = configProvider;
+            FirebaseClient = new FirebaseClient("https://rigcontrol-23592.firebaseio.com/",
+                new FirebaseOptions { AuthTokenAsyncFactory = () => Task.FromResult(configProvider.FirebaseKey) });
         }
 
         public void HealthCheck()
         {
-            var firebaseClient = new FirebaseClient("https://rigcontrol-23592.firebaseio.com/",
-                new FirebaseOptions { AuthTokenAsyncFactory = () => Task.FromResult(ConfigProvider.FirebaseKey) });
-
-            var lastHealthField = firebaseClient.Child("Rigs").Child(Environment.MachineName).Child("HealthCheck");
-            lastHealthField.PutAsync(DateTime.Now).Wait();
+            Root.Child("HealthCheck").PutAsync<string>(DateTime.Now.ToNice()).Wait();
         }
 
         public void ServiceStart()
         {
-            throw new System.NotImplementedException();
+            Root.Child("LastStart").PutAsync<string>(DateTime.Now.ToNice()).Wait();
+            Root.Child("ServiceStarts").PostAsync<string>(DateTime.Now.ToNice()).Wait();
         }
     }
 }

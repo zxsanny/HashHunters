@@ -48,6 +48,7 @@ namespace HashHunters.MinerMonitor.RigClient
 
         public void MainThread()
         {
+            Logger.ServiceStart();
             while (true)
             {
                 Logger.HealthCheck();

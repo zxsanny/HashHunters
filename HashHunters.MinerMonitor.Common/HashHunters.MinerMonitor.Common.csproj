@@ -90,6 +90,7 @@
     <Compile Include="DTO\Enums\EventType.cs" />
     <Compile Include="DTO\Enums\SensorEnum.cs" />
     <Compile Include="DTO\MonitorEvent.cs" />
+    <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="FirebaseLogger.cs" />
     <Compile Include="Interfaces\IEventHub.cs" />

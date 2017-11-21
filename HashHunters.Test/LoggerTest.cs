@@ -11,7 +11,6 @@ namespace HashHunters.Test
         public void HealthCheckTest()
         {
             Container.Resolve<ILogger>().HealthCheck();
-            Container.Resolve<ILogger>().HealthCheck();
         }
     }
 }
