@@ -8,6 +8,7 @@ namespace HashHunters.MinerMonitor.Common.DTO
     {
         public string ServerIP { get; set; }
         public string ServerPort { get; set; }
+        public string FirebaseKey { get; set; }
 
         public List<RigConfig> Rigs { get; set; }
     }

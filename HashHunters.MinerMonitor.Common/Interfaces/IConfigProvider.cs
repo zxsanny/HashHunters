@@ -6,6 +6,7 @@ namespace HashHunters.MinerMonitor.Common.Interfaces
 {
     public interface IConfigProvider
     {
+        string FirebaseKey { get; }
         IPEndPoint IPEndPoint { get; }
 
         Dictionary<string, List<MinerConfig>> Miners { get; }

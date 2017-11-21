@@ -15,17 +15,19 @@ namespace HashHunters.MinerMonitor.RigClient
         private IConfigProvider ConfigProvider { get; }
         private IHardwareInfoProvider HardwareProvider { get; }
         private IEventHub EventHub { get; }
+        private ILogger Logger { get; }
 
         private static readonly CancellationTokenSource CancelTokenSource = new CancellationTokenSource();
         public static CancellationToken CancelToken => CancelTokenSource.Token;
 
-        private Dictionary<string, MinerConfig> CurrentMiners = new Dictionary<string, MinerConfig>();
+        private readonly Dictionary<string, MinerConfig> CurrentMiners = new Dictionary<string, MinerConfig>();
 
-        public ClientApp(IConfigProvider configProvider, IHardwareInfoProvider hardwareProvider, IEventHub eventHub)
+        public ClientApp(IConfigProvider configProvider, IHardwareInfoProvider hardwareProvider, IEventHub eventHub, ILogger logger)
         {
             ConfigProvider = configProvider;
             HardwareProvider = hardwareProvider;
             EventHub = eventHub;
+            Logger = logger;
 
             var ipEndPoint = ConfigProvider.IPEndPoint;
             EventHub.Subscribe(e =>
@@ -48,34 +50,40 @@ namespace HashHunters.MinerMonitor.RigClient
         {
             while (true)
             {
-                var allProcesses = Process.GetProcesses();
-                foreach (var miner in ConfigProvider.Miners)
+                Logger.HealthCheck();
+                MinersCheck();
+                Thread.Sleep(20000);
+            }
+        }
+
+        private void MinersCheck()
+        {
+            var allProcesses = Process.GetProcesses();
+            foreach (var miner in ConfigProvider.Miners)
+            {
+                var processes = allProcesses.Where(p => p.ProcessName.ToLowerInvariant() == miner.Key.ToLowerInvariant()).ToList();
+
+                var minerConfig = miner.Value.Select(mc => new
                 {
-                    var processes = allProcesses.Where(p => p.ProcessName.ToLowerInvariant() == miner.Key.ToLowerInvariant()).ToList();
+                    Config = mc,
+                    MinInterval = mc.GetCurrentMinimumInterval()
+                })
+                .Where(x => x.MinInterval != null)
+                .OrderBy(x => x.MinInterval).FirstOrDefault()?.Config;
 
-                    var minerConfig = miner.Value.Select(mc => new
+                if (minerConfig != null)
+                {
+                    if (!processes.Any() || !CurrentMiners.ContainsKey(miner.Key) || CurrentMiners[miner.Key] != minerConfig)
                     {
-                        Config = mc,
-                        MinInterval = mc.GetCurrentMinimumInterval()
-                    })
-                    .Where(x => x.MinInterval != null)
-                    .OrderBy(x => x.MinInterval).FirstOrDefault()?.Config;
-
-                    if (minerConfig != null)
-                    {
-                        if (!processes.Any() || !CurrentMiners.ContainsKey(miner.Key) || CurrentMiners[miner.Key] != minerConfig)
-                        {
-                            StopMiner(processes);
-                            CurrentMiners.Remove(miner.Key);
-                            CurrentMiners.Add(miner.Key, minerConfig);
-
-                            RunMiner(miner.Key, minerConfig);
-                        }
-                    }
-                    else
                         StopMiner(processes);
+                        CurrentMiners.Remove(miner.Key);
+                        CurrentMiners.Add(miner.Key, minerConfig);
+
+                        RunMiner(miner.Key, minerConfig);
+                    }
                 }
-                Thread.Sleep(5000);
+                else
+                    StopMiner(processes);
             }
         }
 

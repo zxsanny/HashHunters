@@ -84,6 +84,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\FirebaseDTO.cs" />
     <Compile Include="DTO\RigSettings.cs" />
     <Compile Include="EventHub.cs" />
     <Compile Include="DTO\Enums\EventType.cs" />
@@ -93,7 +94,7 @@
     <Compile Include="FirebaseLogger.cs" />
     <Compile Include="Interfaces\IEventHub.cs" />
     <Compile Include="Interfaces\ILogger.cs" />
-    <Compile Include="Interfaces\JSONFileConfigProvider.cs" />
+    <Compile Include="JsonFileConfigProvider.cs" />
     <Compile Include="AutofacConfig.cs" />
     <Compile Include="DTO\HardwareEvent.cs" />
     <Compile Include="Extensions\IntExtensions.cs" />

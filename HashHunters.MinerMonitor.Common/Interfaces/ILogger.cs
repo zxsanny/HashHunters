@@ -1,4 +1,6 @@
-﻿namespace HashHunters.MinerMonitor.Common.Interfaces
+﻿using System.Threading.Tasks;
+
+namespace HashHunters.MinerMonitor.Common.Interfaces
 {
     public interface ILogger
     {

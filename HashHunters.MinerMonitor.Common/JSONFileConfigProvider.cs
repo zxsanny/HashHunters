@@ -4,18 +4,19 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using HashHunters.MinerMonitor.Common.DTO;
+using HashHunters.MinerMonitor.Common.Interfaces;
 using Newtonsoft.Json;
 
-namespace HashHunters.MinerMonitor.Common.Interfaces
+namespace HashHunters.MinerMonitor.Common
 {
-    public class JSONFileConfigProvider : IConfigProvider
+    public class JsonFileConfigProvider : IConfigProvider
     {
         private const string SETTINGS_FILE = "settings.json";
         private const string ETH_ADDRESS = "0xd70921f415d48f2af3b005c5ec2c2279df7a94a2";
 
         private RigSettings RigSettings;
 
-        public JSONFileConfigProvider()
+        public JsonFileConfigProvider()
         {
             EnsureConfig();
         }
@@ -29,6 +30,7 @@ namespace HashHunters.MinerMonitor.Common.Interfaces
                 {
                     ServerIP = "127.0.0.1",
                     ServerPort = "80",
+                    FirebaseKey = "OeJkpfagiVD7h5sNJrZxia5cBQ6p8Al7C0UQbSVB",
                     Rigs = new List<RigConfig>
                     {
                         new RigConfig
@@ -75,6 +77,15 @@ namespace HashHunters.MinerMonitor.Common.Interfaces
             }
 
             RigSettings = JsonConvert.DeserializeObject<RigSettings>(File.ReadAllText(path));
+        }
+
+        public string FirebaseKey
+        {
+            get
+            {
+                EnsureConfig();
+                return RigSettings.FirebaseKey;
+            }
         }
 
         public IPEndPoint IPEndPoint
