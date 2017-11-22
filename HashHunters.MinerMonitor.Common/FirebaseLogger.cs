@@ -9,6 +9,8 @@ namespace HashHunters.MinerMonitor.Common
 {
     public class FirebaseLogger : ILogger
     {
+        private readonly TimeSpan WAIT_TIME = TimeSpan.FromSeconds(12);
+
         private readonly FirebaseClient FirebaseClient;
         private ChildQuery Root => FirebaseClient.Child("Rigs").Child(Environment.MachineName);
 
@@ -20,13 +22,37 @@ namespace HashHunters.MinerMonitor.Common
 
         public void HealthCheck()
         {
-            Root.Child("HealthCheck").PutAsync<string>(DateTime.Now.ToNice()).Wait();
+            FirebasePut("HealthCheck", DateTime.Now.ToNice());
         }
 
         public void ServiceStart()
         {
-            Root.Child("LastStart").PutAsync<string>(DateTime.Now.ToNice()).Wait();
-            Root.Child("ServiceStarts").PostAsync<string>(DateTime.Now.ToNice()).Wait();
+            FirebasePut("LastStart", DateTime.Now.ToNice());
+            FirebasePost("ServiceStarts", DateTime.Now.ToNice());
+        }
+
+        private void FirebasePut<T>(string path, T value)
+        {
+            try
+            {
+                Root.Child(path).PutAsync<T>(value).Wait(WAIT_TIME);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+        }
+
+        private void FirebasePost<T>(string path, T value)
+        {
+            try
+            {
+                Root.Child(path).PostAsync<T>(value).Wait(WAIT_TIME);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
     }
 }
