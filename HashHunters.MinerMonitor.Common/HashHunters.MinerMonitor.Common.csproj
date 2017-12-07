@@ -92,9 +92,11 @@
     <Compile Include="DTO\MonitorEvent.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="FileLogger.cs" />
     <Compile Include="FirebaseLogger.cs" />
     <Compile Include="Interfaces\IEventHub.cs" />
-    <Compile Include="Interfaces\ILogger.cs" />
+    <Compile Include="Interfaces\ILocalLogger.cs" />
+    <Compile Include="Interfaces\IRemoteLogger.cs" />
     <Compile Include="JsonFileConfigProvider.cs" />
     <Compile Include="AutofacConfig.cs" />
     <Compile Include="DTO\HardwareEvent.cs" />

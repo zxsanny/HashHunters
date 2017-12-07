@@ -7,17 +7,20 @@ using HashHunters.MinerMonitor.Common.Extensions;
 
 namespace HashHunters.MinerMonitor.Common
 {
-    public class FirebaseLogger : ILogger
+    public class FirebaseLogger : IRemoteLogger
     {
+        ILocalLogger LocalLogger;
+
         private readonly TimeSpan WAIT_TIME = TimeSpan.FromSeconds(12);
 
         private readonly FirebaseClient FirebaseClient;
         private ChildQuery Root => FirebaseClient.Child("Rigs").Child(Environment.MachineName);
 
-        public FirebaseLogger(IConfigProvider configProvider)
+        public FirebaseLogger(IConfigProvider configProvider, ILocalLogger localLogger)
         {
             FirebaseClient = new FirebaseClient("https://rigcontrol-23592.firebaseio.com/",
                 new FirebaseOptions { AuthTokenAsyncFactory = () => Task.FromResult(configProvider.FirebaseKey) });
+            LocalLogger = localLogger;
         }
 
         public void HealthCheck()
@@ -27,6 +30,7 @@ namespace HashHunters.MinerMonitor.Common
 
         public void ServiceStart()
         {
+            LocalLogger.LogInfo("Service starts");
             FirebasePut("LastStart", DateTime.Now.ToNice());
             FirebasePost("ServiceStarts", DateTime.Now.ToNice());
         }
@@ -35,10 +39,12 @@ namespace HashHunters.MinerMonitor.Common
         {
             try
             {
-                Root.Child(path).PutAsync<T>(value).Wait(WAIT_TIME);
+                Root.Child(path).PutAsync(value).Wait(WAIT_TIME);
+                throw new Exception("ololo PUT");
             }
             catch (Exception e)
             {
+                LocalLogger.LogError(e);
                 Console.WriteLine(e);
             }
         }
@@ -47,10 +53,12 @@ namespace HashHunters.MinerMonitor.Common
         {
             try
             {
-                Root.Child(path).PostAsync<T>(value).Wait(WAIT_TIME);
+                Root.Child(path).PostAsync(value).Wait(WAIT_TIME);
+                throw new Exception("ololo POST");
             }
             catch (Exception e)
             {
+                LocalLogger.LogError(e);
                 Console.WriteLine(e);
             }
         }

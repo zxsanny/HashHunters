@@ -10,7 +10,7 @@ namespace HashHunters.Test
         [Test]
         public void HealthCheckTest()
         {
-            Container.Resolve<ILogger>().HealthCheck();
+            Container.Resolve<IRemoteLogger>().HealthCheck();
         }
     }
 }

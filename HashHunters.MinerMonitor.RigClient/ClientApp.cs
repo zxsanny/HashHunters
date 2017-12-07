@@ -12,22 +12,24 @@ namespace HashHunters.MinerMonitor.RigClient
 {
     public class ClientApp : IApp
     {
-        private IConfigProvider ConfigProvider { get; }
-        private IHardwareInfoProvider HardwareProvider { get; }
-        private IEventHub EventHub { get; }
-        private ILogger Logger { get; }
+        IConfigProvider ConfigProvider;
+        IHardwareInfoProvider HardwareProvider;
+        IEventHub EventHub;
+        IRemoteLogger Logger;
+        ILocalLogger LocalLogger;
 
         private static readonly CancellationTokenSource CancelTokenSource = new CancellationTokenSource();
         public static CancellationToken CancelToken => CancelTokenSource.Token;
 
         private readonly Dictionary<string, MinerConfig> CurrentMiners = new Dictionary<string, MinerConfig>();
 
-        public ClientApp(IConfigProvider configProvider, IHardwareInfoProvider hardwareProvider, IEventHub eventHub, ILogger logger)
+        public ClientApp(IConfigProvider configProvider, IHardwareInfoProvider hardwareProvider, IEventHub eventHub, IRemoteLogger logger, ILocalLogger localLogger)
         {
             ConfigProvider = configProvider;
             HardwareProvider = hardwareProvider;
             EventHub = eventHub;
             Logger = logger;
+            LocalLogger = localLogger;
 
             var ipEndPoint = ConfigProvider.IPEndPoint;
             EventHub.Subscribe(e =>
@@ -43,18 +45,16 @@ namespace HashHunters.MinerMonitor.RigClient
 
         public void Run()
         {
-            Task.Run((Action)MainThread, CancelToken);
-        }
-
-        public void MainThread()
-        {
-            Logger.ServiceStart();
-            while (true)
+            Task.Run(() => 
             {
-                Logger.HealthCheck();
-                MinersCheck();
-                Thread.Sleep(20000);
-            }
+                Logger.ServiceStart();
+                while (true)
+                {
+                    Logger.HealthCheck();
+                    MinersCheck();
+                    Thread.Sleep(20000);
+                }
+            }, CancelToken);
         }
 
         private void MinersCheck()
@@ -125,6 +125,7 @@ namespace HashHunters.MinerMonitor.RigClient
 
         public void Stop()
         {
+            LocalLogger.LogInfo("Service stops, Cancel token activated");
             CancelTokenSource.Cancel();
             NetworkComms.Shutdown();
         }
