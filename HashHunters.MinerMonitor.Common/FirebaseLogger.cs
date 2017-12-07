@@ -40,7 +40,6 @@ namespace HashHunters.MinerMonitor.Common
             try
             {
                 Root.Child(path).PutAsync(value).Wait(WAIT_TIME);
-                throw new Exception("ololo PUT");
             }
             catch (Exception e)
             {
@@ -54,7 +53,6 @@ namespace HashHunters.MinerMonitor.Common
             try
             {
                 Root.Child(path).PostAsync(value).Wait(WAIT_TIME);
-                throw new Exception("ololo POST");
             }
             catch (Exception e)
             {
