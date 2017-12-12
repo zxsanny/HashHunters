@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using HashHunters.Autotrader.MarketsAPI.Yobit;
 
 namespace HashHunters.Autotrader.MarketsAPI.Bittrex
 {
@@ -25,9 +24,5 @@ namespace HashHunters.Autotrader.MarketsAPI.Bittrex
             return Rest.Get<BittrexResult<List<MarketSummary>>>("public/getmarketsummary", new { market }).Result;
         }
 
-        public YobitTicker GetTickerYobit(string market)
-        {
-            throw new NotImplementedException();   
-        }
     }
 }

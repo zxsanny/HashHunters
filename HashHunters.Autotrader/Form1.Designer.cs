@@ -84,7 +84,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(620, 449);
+            this.ClientSize = new System.Drawing.Size(1347, 747);
             this.Controls.Add(this.bGetSummary);
             this.Controls.Add(this.cbMarkets);
             this.Controls.Add(this.bGetTicker);

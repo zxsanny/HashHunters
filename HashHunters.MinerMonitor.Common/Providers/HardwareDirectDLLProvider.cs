@@ -9,7 +9,7 @@ using GPUInfo = HashHunters.MinerMonitor.Common.DTO.GPUInfo;
 
 namespace HashHunters.MinerMonitor.Common.Providers
 {
-    public class DirectDllInfoProvider : IHardwareInfoProvider
+    public class HardwareDirectDLLProvider : IHardwareInfoProvider
     {
         public HardwareInfo GetHardware()
         {

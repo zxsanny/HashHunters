@@ -58,6 +58,15 @@ namespace HashHunters.MinerMonitor.Common.DTO
             return res && intervalsRes;
         }
 
+        public override int GetHashCode()
+        {
+            var hashCode = 1559102289;
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(ProgramFolder);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Parameters);
+            hashCode = hashCode * -1521134295 + EqualityComparer<List<TimeInterval>>.Default.GetHashCode(Intervals);
+            return hashCode;
+        }
+
         public static bool operator ==(MinerConfig obj1, MinerConfig obj2)
         {
             if (ReferenceEquals(obj1, null))

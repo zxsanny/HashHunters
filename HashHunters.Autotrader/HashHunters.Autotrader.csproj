@@ -63,8 +63,6 @@
     <Compile Include="MarketsAPI\Bittrex\BittrexMarketAPI.cs" />
     <Compile Include="MarketsAPI\IMarketAPI.cs" />
     <Compile Include="MarketsAPI\Bittrex\BittrexResult.cs" />
-    <Compile Include="MarketsAPI\Yobit\YobitTicker.cs" />
-    <Compile Include="MarketsAPI\Yobit\YobitMarketAPI.cs" />
     <Compile Include="MarketsAPI\Bittrex\MarketSummary.cs" />
     <Compile Include="MarketsAPI\Bittrex\Ticker.cs" />
     <Compile Include="Program.cs" />

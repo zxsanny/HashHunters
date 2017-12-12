@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2003
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashHunters.MinerMonitor.Common", "HashHunters.MinerMonitor.Common\HashHunters.MinerMonitor.Common.csproj", "{02E4220A-8609-4AEB-9267-5892BDB13ADD}"
 EndProject
@@ -20,6 +20,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashHunters.Autotrader", "HashHunters.Autotrader\HashHunters.Autotrader.csproj", "{2517A1D5-4A20-42C1-BF41-90CC54D453ED}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashHunters.Test", "HashHunters.Test\HashHunters.Test.csproj", "{712B267E-E6FF-4921-BAF8-57715D28A4CC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Autotrader", "Autotrader", "{EB00115B-AAC7-4BE1-A432-7C0981FD5D2F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -66,5 +68,9 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{50E1A112-1688-4021-9E1C-54101C7A7ABD} = {095BB3E0-1DED-4611-8198-70941705EAA4}
 		{CA0F46B7-EC83-42FA-B416-C87A0EE75464} = {095BB3E0-1DED-4611-8198-70941705EAA4}
+		{2517A1D5-4A20-42C1-BF41-90CC54D453ED} = {EB00115B-AAC7-4BE1-A432-7C0981FD5D2F}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4A27C46E-DC89-48ED-B6CD-E3E4D0639881}
 	EndGlobalSection
 EndGlobal
