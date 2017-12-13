@@ -5,17 +5,7 @@ VisualStudioVersion = 15.0.27130.2003
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashHunters.MinerMonitor.Common", "HashHunters.MinerMonitor.Common\HashHunters.MinerMonitor.Common.csproj", "{02E4220A-8609-4AEB-9267-5892BDB13ADD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashHunters.MinerMonitor.Server", "HashHunters.MinerMonitor.Server\HashHunters.MinerMonitor.Server.csproj", "{1D9723C3-F09B-4633-B0D2-D6E85855DEFF}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashHunters.MinerMonitor.RigClient", "HashHunters.MinerMonitor.RigClient\HashHunters.MinerMonitor.RigClient.csproj", "{D4AC930F-927E-4E47-B426-DBF23F0D837C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashHunters.SafeTemperature", "HashHunters.SafeTemperature\HashHunters.SafeTemperature.csproj", "{C2FAF282-6BAC-4797-9C1F-216FAA959511}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GPUAPIs", "GPUAPIs", "{095BB3E0-1DED-4611-8198-70941705EAA4}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashHunters.NVidiaAPI", "HashHunters.NVidiaAPI\HashHunters.NVidiaAPI.csproj", "{50E1A112-1688-4021-9E1C-54101C7A7ABD}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashHunters.AMDAPI", "HashHunters.AMDAPI\HashHunters.AMDAPI.csproj", "{CA0F46B7-EC83-42FA-B416-C87A0EE75464}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashHunters.Autotrader", "HashHunters.Autotrader\HashHunters.Autotrader.csproj", "{2517A1D5-4A20-42C1-BF41-90CC54D453ED}"
 EndProject
@@ -35,26 +25,10 @@ Global
 		{02E4220A-8609-4AEB-9267-5892BDB13ADD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02E4220A-8609-4AEB-9267-5892BDB13ADD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02E4220A-8609-4AEB-9267-5892BDB13ADD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1D9723C3-F09B-4633-B0D2-D6E85855DEFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1D9723C3-F09B-4633-B0D2-D6E85855DEFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1D9723C3-F09B-4633-B0D2-D6E85855DEFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1D9723C3-F09B-4633-B0D2-D6E85855DEFF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D4AC930F-927E-4E47-B426-DBF23F0D837C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D4AC930F-927E-4E47-B426-DBF23F0D837C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4AC930F-927E-4E47-B426-DBF23F0D837C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4AC930F-927E-4E47-B426-DBF23F0D837C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C2FAF282-6BAC-4797-9C1F-216FAA959511}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C2FAF282-6BAC-4797-9C1F-216FAA959511}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C2FAF282-6BAC-4797-9C1F-216FAA959511}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C2FAF282-6BAC-4797-9C1F-216FAA959511}.Release|Any CPU.Build.0 = Release|Any CPU
-		{50E1A112-1688-4021-9E1C-54101C7A7ABD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{50E1A112-1688-4021-9E1C-54101C7A7ABD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{50E1A112-1688-4021-9E1C-54101C7A7ABD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{50E1A112-1688-4021-9E1C-54101C7A7ABD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CA0F46B7-EC83-42FA-B416-C87A0EE75464}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CA0F46B7-EC83-42FA-B416-C87A0EE75464}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CA0F46B7-EC83-42FA-B416-C87A0EE75464}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CA0F46B7-EC83-42FA-B416-C87A0EE75464}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2517A1D5-4A20-42C1-BF41-90CC54D453ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2517A1D5-4A20-42C1-BF41-90CC54D453ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2517A1D5-4A20-42C1-BF41-90CC54D453ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -72,8 +46,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{50E1A112-1688-4021-9E1C-54101C7A7ABD} = {095BB3E0-1DED-4611-8198-70941705EAA4}
-		{CA0F46B7-EC83-42FA-B416-C87A0EE75464} = {095BB3E0-1DED-4611-8198-70941705EAA4}
 		{2517A1D5-4A20-42C1-BF41-90CC54D453ED} = {EB00115B-AAC7-4BE1-A432-7C0981FD5D2F}
 		{8257EDFC-E5C6-402C-83D3-631C59EB86DB} = {EB00115B-AAC7-4BE1-A432-7C0981FD5D2F}
 	EndGlobalSection

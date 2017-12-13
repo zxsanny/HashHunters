@@ -13,8 +13,6 @@ namespace HashHunters.MinerMonitor.RigClient
     public class ClientApp : IApp
     {
         IConfigProvider ConfigProvider;
-        IHardwareInfoProvider HardwareProvider;
-        IEventHub EventHub;
         IRemoteLogger Logger;
         ILocalLogger LocalLogger;
 
@@ -23,24 +21,13 @@ namespace HashHunters.MinerMonitor.RigClient
 
         private readonly Dictionary<string, MinerConfig> CurrentMiners = new Dictionary<string, MinerConfig>();
 
-        public ClientApp(IConfigProvider configProvider, IHardwareInfoProvider hardwareProvider, IEventHub eventHub, IRemoteLogger logger, ILocalLogger localLogger)
+        public ClientApp(IConfigProvider configProvider, IRemoteLogger logger, ILocalLogger localLogger)
         {
             ConfigProvider = configProvider;
-            HardwareProvider = hardwareProvider;
-            EventHub = eventHub;
             Logger = logger;
             LocalLogger = localLogger;
 
             var ipEndPoint = ConfigProvider.IPEndPoint;
-            EventHub.Subscribe(e =>
-            {
-                NetworkComms.SendObject(e.Type.ToString(), ipEndPoint.Address.ToString(), ipEndPoint.Port, e);
-            });
-            EventHub.Subscribe(e =>
-            {
-                Console.WriteLine(e.ToString());
-            });
-            EventHub.Start(CancelToken);
         }
 
         public void Run()

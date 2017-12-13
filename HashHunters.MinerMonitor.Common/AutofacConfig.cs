@@ -1,7 +1,6 @@
 ﻿using Autofac;
 using Autofac.Core;
 using HashHunters.MinerMonitor.Common.Interfaces;
-using HashHunters.MinerMonitor.Common.Providers;
 
 namespace HashHunters.MinerMonitor.Common
 {
@@ -11,8 +10,6 @@ namespace HashHunters.MinerMonitor.Common
         {
             var builder = new ContainerBuilder();
             builder.RegisterType<JsonFileConfigProvider>().As<IConfigProvider>();
-            builder.RegisterType<HardwareDirectDLLProvider>().As<IHardwareInfoProvider>().SingleInstance();
-            builder.RegisterType<EventHub>().As<IEventHub>().SingleInstance();
             builder.RegisterType<FirebaseLogger>().As<IRemoteLogger>().SingleInstance();
             builder.RegisterType<FileLogger>().As<ILocalLogger>().SingleInstance();
 
