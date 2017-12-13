@@ -1,2 +1,3 @@
-# miner-monitor
-Online tool for mining monitoring
+# HashHunters Cryptotools
+Autotrading platform
+Mining monitoring RigControl
