@@ -1,4 +1,4 @@
-﻿namespace HashHunters.MinerMonitor.Common.Interfaces
+﻿namespace HashHunters.MinerMonitor.RigClient
 {
     public interface IRemoteLogger
     {

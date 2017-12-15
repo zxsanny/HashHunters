@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace HashHunters.MinerMonitor.Common.DTO
+namespace HashHunters.MinerMonitor.RigClient.DTO
 {
     public class RigSettings
     {

@@ -1,12 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+using HashHunters.Autotrader;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
+using System;
 
 namespace HashHuntres.Autotrader.Web
 {
@@ -14,6 +9,8 @@ namespace HashHuntres.Autotrader.Web
     {
         public static void Main(string[] args)
         {
+            var repository = new OHLCRedisRepository();
+            repository.WriteTicker("asc", DateTime.Now, 12);
             BuildWebHost(args).Run();
         }
 

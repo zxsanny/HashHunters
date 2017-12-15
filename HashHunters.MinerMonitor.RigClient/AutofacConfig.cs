@@ -1,8 +1,8 @@
 ﻿using Autofac;
 using Autofac.Core;
-using HashHunters.MinerMonitor.Common.Interfaces;
+using HashHunters.MinerMonitor.RigClient;
 
-namespace HashHunters.MinerMonitor.Common
+namespace HashHunters.MinerMonitor.RigClient
 {
     public static class AutofacConfig
     {
@@ -11,8 +11,7 @@ namespace HashHunters.MinerMonitor.Common
             var builder = new ContainerBuilder();
             builder.RegisterType<JsonFileConfigProvider>().As<IConfigProvider>();
             builder.RegisterType<FirebaseLogger>().As<IRemoteLogger>().SingleInstance();
-            builder.RegisterType<FileLogger>().As<ILocalLogger>().SingleInstance();
-
+            
             foreach (var module in modules)
                 builder.RegisterModule(module);
             return builder.Build();

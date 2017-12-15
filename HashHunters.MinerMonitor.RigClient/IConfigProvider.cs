@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Net;
-using HashHunters.MinerMonitor.Common.DTO;
+using HashHunters.MinerMonitor.RigClient.DTO;
 
-namespace HashHunters.MinerMonitor.Common.Interfaces
+namespace HashHunters.MinerMonitor.RigClient
 {
     public interface IConfigProvider
     {

@@ -4,28 +4,30 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using HashHunters.MinerMonitor.Common.DTO;
-using HashHunters.MinerMonitor.Common.Interfaces;
-using NetworkCommsDotNet;
+using HashHunters.MinerMonitor.RigClient.DTO;
 
 namespace HashHunters.MinerMonitor.RigClient
 {
+    public interface IApp
+    {
+        void Run();
+        void Stop();
+    }
+
     public class ClientApp : IApp
     {
         IConfigProvider ConfigProvider;
         IRemoteLogger Logger;
-        ILocalLogger LocalLogger;
-
+        
         private static readonly CancellationTokenSource CancelTokenSource = new CancellationTokenSource();
         public static CancellationToken CancelToken => CancelTokenSource.Token;
 
         private readonly Dictionary<string, MinerConfig> CurrentMiners = new Dictionary<string, MinerConfig>();
 
-        public ClientApp(IConfigProvider configProvider, IRemoteLogger logger, ILocalLogger localLogger)
+        public ClientApp(IConfigProvider configProvider, IRemoteLogger logger)
         {
             ConfigProvider = configProvider;
             Logger = logger;
-            LocalLogger = localLogger;
 
             var ipEndPoint = ConfigProvider.IPEndPoint;
         }
@@ -112,9 +114,8 @@ namespace HashHunters.MinerMonitor.RigClient
 
         public void Stop()
         {
-            LocalLogger.LogInfo("Service stops, Cancel token activated");
+            FileLogger.LogInfo("Service stops, Cancel token activated");
             CancelTokenSource.Cancel();
-            NetworkComms.Shutdown();
         }
     }
 }

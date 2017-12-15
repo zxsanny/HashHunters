@@ -1,26 +1,22 @@
 ﻿using System;
-using Firebase.Database;
-using HashHunters.MinerMonitor.Common.Interfaces;
 using System.Threading.Tasks;
-using Firebase.Database.Query;
 using HashHunters.MinerMonitor.Common.Extensions;
+using Firebase.Database;
+using Firebase.Database.Query;
 
-namespace HashHunters.MinerMonitor.Common
+namespace HashHunters.MinerMonitor.RigClient
 {
     public class FirebaseLogger : IRemoteLogger
     {
-        ILocalLogger LocalLogger;
-
         private readonly TimeSpan WAIT_TIME = TimeSpan.FromSeconds(12);
 
         private readonly FirebaseClient FirebaseClient;
         private ChildQuery Root => FirebaseClient.Child("Rigs").Child(Environment.MachineName);
 
-        public FirebaseLogger(IConfigProvider configProvider, ILocalLogger localLogger)
+        public FirebaseLogger(IConfigProvider configProvider)
         {
             FirebaseClient = new FirebaseClient("https://rigcontrol-23592.firebaseio.com/",
                 new FirebaseOptions { AuthTokenAsyncFactory = () => Task.FromResult(configProvider.FirebaseKey) });
-            LocalLogger = localLogger;
         }
 
         public void HealthCheck()
@@ -30,7 +26,7 @@ namespace HashHunters.MinerMonitor.Common
 
         public void ServiceStart()
         {
-            LocalLogger.LogInfo("Service starts");
+            FileLogger.LogInfo("Service starts");
             FirebasePut("LastStart", DateTime.Now.ToNice());
             FirebasePost("ServiceStarts", DateTime.Now.ToNice());
         }
@@ -43,7 +39,7 @@ namespace HashHunters.MinerMonitor.Common
             }
             catch (Exception e)
             {
-                LocalLogger.LogError(e);
+                FileLogger.LogError(e);
                 Console.WriteLine(e);
             }
         }
@@ -56,7 +52,7 @@ namespace HashHunters.MinerMonitor.Common
             }
             catch (Exception e)
             {
-                LocalLogger.LogError(e);
+                FileLogger.LogError(e);
                 Console.WriteLine(e);
             }
         }

@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using HashHunters.MinerMonitor.Common.Interfaces;
+using HashHunters.MinerMonitor.RigClient;
 using NUnit.Framework;
 
 namespace HashHunters.Test

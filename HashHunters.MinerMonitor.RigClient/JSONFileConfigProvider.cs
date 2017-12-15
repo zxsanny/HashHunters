@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
-using HashHunters.MinerMonitor.Common.DTO;
-using HashHunters.MinerMonitor.Common.Interfaces;
+using HashHunters.MinerMonitor.RigClient.DTO;
+using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json;
 
-namespace HashHunters.MinerMonitor.Common
+namespace HashHunters.MinerMonitor.RigClient
 {
     public class JsonFileConfigProvider : IConfigProvider
     {

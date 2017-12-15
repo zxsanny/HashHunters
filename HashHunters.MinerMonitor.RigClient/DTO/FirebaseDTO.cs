@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace HashHunters.MinerMonitor.Common.DTO
+namespace HashHunters.MinerMonitor.RigClient.DTO
 {
     public class FirebaseRig
     {

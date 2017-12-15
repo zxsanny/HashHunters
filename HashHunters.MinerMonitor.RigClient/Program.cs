@@ -1,6 +1,4 @@
 ﻿using Autofac;
-using HashHunters.MinerMonitor.Common;
-using HashHunters.MinerMonitor.Common.Interfaces;
 using Topshelf;
 
 namespace HashHunters.MinerMonitor.RigClient
