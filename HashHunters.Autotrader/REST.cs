@@ -9,7 +9,9 @@ namespace HashHunters.Autotrader
     public interface IREST
     {
         void Init(string baseAddress);
-        T Get<T>(string url, object parameters = null);
+        T Get<T, TParam>(string url, TParam parameters = default(TParam)) 
+            where T : class 
+            where TParam : class;
     }
 
     public class REST : IREST
@@ -21,7 +23,9 @@ namespace HashHunters.Autotrader
             Client = new HttpClient { BaseAddress = new Uri(baseAddress) };
         }
 
-        public T Get<T>(string url, object parameters)
+        public T Get<T, TParam>(string url, TParam parameters)
+            where T : class
+            where TParam : class
         {
             if (Client == null)
                 throw new Exception("Rest is not initialized!");

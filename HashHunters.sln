@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashHunters.Common", "HashH
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashHunters.MinerMonitor.RigClient", "HashHunters.MinerMonitor.RigClient\HashHunters.MinerMonitor.RigClient.csproj", "{D4AC930F-927E-4E47-B426-DBF23F0D837C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashHunters.Autotrader.MarketsAPI", "HashHunters.Autotrader\HashHunters.Autotrader.MarketsAPI.csproj", "{2517A1D5-4A20-42C1-BF41-90CC54D453ED}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashHunters.Autotrader.MarketBrokers", "HashHunters.Autotrader\HashHunters.Autotrader.MarketBrokers.csproj", "{2517A1D5-4A20-42C1-BF41-90CC54D453ED}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashHunters.Test", "HashHunters.Test\HashHunters.Test.csproj", "{712B267E-E6FF-4921-BAF8-57715D28A4CC}"
 EndProject

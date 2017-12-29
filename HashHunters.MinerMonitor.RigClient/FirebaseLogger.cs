@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Threading.Tasks;
+using FirebaseSharp.Portable;
+using FirebaseSharp.Portable.Interfaces;
 using HashHunters.MinerMonitor.Common.Extensions;
-using Firebase.Database;
-using Firebase.Database.Query;
 
 namespace HashHunters.MinerMonitor.RigClient
 {
@@ -10,51 +9,41 @@ namespace HashHunters.MinerMonitor.RigClient
     {
         private readonly TimeSpan WAIT_TIME = TimeSpan.FromSeconds(12);
 
-        private readonly FirebaseClient FirebaseClient;
-        private ChildQuery Root => FirebaseClient.Child("Rigs").Child(Environment.MachineName);
+        private IFirebase Root;
 
         public FirebaseLogger(IConfigProvider configProvider)
         {
-            FirebaseClient = new FirebaseClient("https://rigcontrol-23592.firebaseio.com/",
-                new FirebaseOptions { AuthTokenAsyncFactory = () => Task.FromResult(configProvider.FirebaseKey) });
+            var firebaseApp = new FirebaseApp(new Uri("https://rigcontrol-23592.firebaseio.com/"), configProvider.FirebaseKey);
+            Root = firebaseApp.Child("Rigs").Child(Environment.MachineName);
         }
 
         public void HealthCheck()
         {
-            FirebasePut("HealthCheck", DateTime.Now.ToNice());
+            Update("HealthCheck", DateTime.Now.ToNice());
         }
 
         public void ServiceStart()
         {
             FileLogger.LogInfo("Service starts");
-            FirebasePut("LastStart", DateTime.Now.ToNice());
-            FirebasePost("ServiceStarts", DateTime.Now.ToNice());
+            Update("LastStart", DateTime.Now.ToNice());
+            Push("ServiceStarts", DateTime.Now.ToNice());
         }
 
-        private void FirebasePut<T>(string path, T value)
+        private void Update(string path, object value) => 
+            Root.Child(path).Set(value, LogError);
+
+        private void Push<T>(string path, T value)
         {
-            try
-            {
-                Root.Child(path).PutAsync(value).Wait(WAIT_TIME);
-            }
-            catch (Exception e)
-            {
-                FileLogger.LogError(e);
-                Console.WriteLine(e);
-            }
+            var child = Root.Child(path).Push(callback: LogError);
+            child.Set(value, LogError);
         }
 
-        private void FirebasePost<T>(string path, T value)
+        private void LogError(FirebaseError error)
         {
-            try
-            {
-                Root.Child(path).PostAsync(value).Wait(WAIT_TIME);
-            }
-            catch (Exception e)
-            {
-                FileLogger.LogError(e);
-                Console.WriteLine(e);
-            }
+            if (error == null)
+                return;
+            FileLogger.LogInfo(error.Code);
+            Console.WriteLine(error.Code);
         }
     }
 }

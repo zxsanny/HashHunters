@@ -5,9 +5,14 @@
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <IsPackable>false</IsPackable>
+    <Version>0.2</Version>
+    <Company>HashHunters</Company>
+    <Authors>Oleksandr Bezdieniezhnykh</Authors>
+    <Product>HashHunters Trading Platform</Product>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Bittrex.Net" Version="1.3.2" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
     <PackageReference Include="StackExchange.Redis" Version="1.2.6" />
   </ItemGroup>
@@ -17,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HashHunters.Autotrader\HashHunters.Autotrader.MarketsAPI.csproj" />
+    <ProjectReference Include="..\HashHunters.Autotrader\HashHunters.Autotrader.MarketBrokers.csproj" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

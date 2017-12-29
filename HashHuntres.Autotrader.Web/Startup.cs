@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using HashHunters.Autotrader;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
@@ -23,6 +20,12 @@ namespace HashHuntres.Autotrader.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddTransient<IMarketBroker, BittrexBroker>();
+            services.AddTransient<IREST, REST>();
+            services.AddLogging();
+
+            var serviceProvider = services.BuildServiceProvider();
+            serviceProvider.GetService<IMarketBroker>().Start();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,6 +56,13 @@ namespace HashHuntres.Autotrader.Web
                     name: "spa-fallback",
                     defaults: new { controller = "Home", action = "Index" });
             });
+
+
+            //var repository = new OHLCRedisRepository();
+
+            //repository.WriteTicker("ADA/BTC", DateTime.Now, 2093);
+
+
         }
     }
 }
