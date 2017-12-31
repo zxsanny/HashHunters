@@ -40,7 +40,7 @@ namespace HashHunters.MinerMonitor.RigClient
                 while (true)
                 {
                     Logger.HealthCheck();
-                    //MinersCheck();
+                    MinersCheck();
                     Thread.Sleep(20000);
                 }
             }, CancelToken);

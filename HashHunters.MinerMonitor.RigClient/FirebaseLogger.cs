@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Net;
 using FirebaseSharp.Portable;
 using FirebaseSharp.Portable.Interfaces;
 using HashHunters.MinerMonitor.Common.Extensions;
@@ -26,7 +28,9 @@ namespace HashHunters.MinerMonitor.RigClient
         {
             FileLogger.LogInfo("Service starts");
             Update("LastStart", DateTime.Now.ToNice());
-            Push("ServiceStarts", DateTime.Now.ToNice());
+
+            var ip = new WebClient().DownloadString("http://bot.whatismyipaddress.com");
+            Push("ServiceStarts", $"{ip} : {DateTime.Now.ToNice()}");
         }
 
         private void Update(string path, object value) => 

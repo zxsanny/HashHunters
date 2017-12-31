@@ -34,7 +34,9 @@ namespace HashHunters.Autotrader
             {
                 foreach (var interval in Enum<CandleInterval>.GetValues())
                 {
-                    Get(market, interval, DateTime.Now.AddMonths(-1)).Wait();
+                    var task = Get(market, interval, DateTime.Now.AddMonths(-1));
+                    task.Wait();
+                    var res = task.Result;
                 }
             }
         }
