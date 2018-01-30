@@ -1,4 +1,4 @@
-﻿namespace HashHunters.MinerMonitor.Common.DTO
+﻿namespace HashHunters.Autotrader.Core.DTO
 {
     public enum CandleInterval
     {

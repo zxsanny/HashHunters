@@ -1,4 +1,7 @@
 using HashHunters.Autotrader;
+using HashHunters.Autotrader.Core.Interfaces;
+using HashHunters.Autotrader.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
@@ -9,23 +12,20 @@ namespace HashHuntres.Autotrader.Web
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
-
-        public IConfiguration Configuration { get; }
-
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddTransient<IMarketBroker, BittrexBroker>();
-            services.AddTransient<IREST, REST>();
             services.AddLogging();
-
+            services.AddSingleton<IConfiguration>();
+            services.AddTransient<IMarketBroker, BittrexBroker>();
+            services.AddTransient<ISecurityService, SecurityService>();
+            
             var serviceProvider = services.BuildServiceProvider();
-            serviceProvider.GetService<IMarketBroker>().Start();
+            var securityService = serviceProvider.GetService<ISecurityService>();
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options => options.TokenValidationParameters = securityService.GetTokenValidationParameters());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,6 +45,8 @@ namespace HashHuntres.Autotrader.Web
             }
 
             app.UseStaticFiles();
+
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {

@@ -6,30 +6,12 @@ using Newtonsoft.Json;
 
 namespace HashHunters.Autotrader
 {
-    public interface IREST
+    public static class RESTHelper
     {
-        void Init(string baseAddress);
-        T Get<T, TParam>(string url, TParam parameters = default(TParam)) 
-            where T : class 
-            where TParam : class;
-    }
-
-    public class REST : IREST
-    {
-        public HttpClient Client { get; private set; }
-
-        public void Init(string baseAddress)
-        {
-            Client = new HttpClient { BaseAddress = new Uri(baseAddress) };
-        }
-
-        public T Get<T, TParam>(string url, TParam parameters)
+        public static T Get<T, TParam>(this HttpClient client, string url, TParam parameters)
             where T : class
             where TParam : class
         {
-            if (Client == null)
-                throw new Exception("Rest is not initialized!");
-
             var paramsStr = "";
             if (parameters != null)
             {
@@ -40,7 +22,7 @@ namespace HashHunters.Autotrader
                     paramsStr = "?" + string.Join("&", parametersArray);
             }
 
-            var respTask = Client.GetAsync($"{url}{paramsStr}");
+            var respTask = client.GetAsync($"{url}{paramsStr}");
             respTask.Wait();
 
             var h = respTask.Result.Headers;

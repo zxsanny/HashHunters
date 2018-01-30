@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HashHuntres.Autotrader.Web.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     public class SampleDataController : Controller
     {
         private static string[] Summaries = new[]

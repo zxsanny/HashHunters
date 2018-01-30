@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HashHunters.MinerMonitor.Common.DTO
+namespace HashHunters.Autotrader.Core.DTO
 {
     public class CandleData
     {

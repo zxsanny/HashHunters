@@ -14,6 +14,7 @@
   <ItemGroup>
     <PackageReference Include="Bittrex.Net" Version="1.3.2" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.2" />
     <PackageReference Include="StackExchange.Redis" Version="1.2.6" />
   </ItemGroup>
 
@@ -22,7 +23,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HashHunters.Autotrader\HashHunters.Autotrader.MarketBrokers.csproj" />
+    <ProjectReference Include="..\HashHunters.Autotrader.Core\HashHunters.Autotrader.Core.csproj" />
+    <ProjectReference Include="..\HashHunters.Autotrader\HashHunters.Autotrader.Services.csproj" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

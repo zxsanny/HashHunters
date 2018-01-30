@@ -1,0 +1,2 @@
+mongo script_02_initial_db_structure.js
+pause
