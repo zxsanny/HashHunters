@@ -117,9 +117,9 @@
     <None Include="Properties\app.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HashHunters.MinerMonitor.Common\HashHunters.Common.csproj">
+    <ProjectReference Include="..\HashHunters.MinerMonitor.Common\HashHunters.Extensions.csproj">
       <Project>{02E4220A-8609-4AEB-9267-5892BDB13ADD}</Project>
-      <Name>HashHunters.Common</Name>
+      <Name>HashHunters.Extensions</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

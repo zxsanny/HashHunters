@@ -1,5 +1,8 @@
 using System.Diagnostics;
+using System.IdentityModel.Tokens.Jwt;
+using HashHunters.Autotrader;
 using HashHunters.Autotrader.Core.Interfaces;
+using HashHuntres.Autotrader.Core.DTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,11 +10,13 @@ namespace HashHuntres.Autotrader.Web.Controllers
 {
     public class HomeController : Controller
     {
-        IUserRepository UserRepository { get; set; }
+        IUserRepository UserRepository { get; }
+        ISecurityService SecurityService { get; }
 
-        public HomeController(IUserRepository userRepository)
+        public HomeController(IUserRepository userRepository, ISecurityService securityService)
         {
             UserRepository = userRepository;
+            SecurityService = securityService;
         }
 
         [Authorize]
@@ -36,8 +41,9 @@ namespace HashHuntres.Autotrader.Web.Controllers
             {
                 return BadRequest();
             }
-            var userId = UserRepository.Login(loginDTO);
-            
+            var user = UserRepository.Login(loginDTO);
+            var token = new JwtSecurityTokenHandler().WriteToken(SecurityService.GetToken(user));
+            return Ok(token);
         }
     }
 }

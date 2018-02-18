@@ -1,13 +1,10 @@
-﻿using System;
-using HashHuntres.Autotrader.Web.Controllers;
+﻿using HashHunters.Autotrader.Entities;
+using HashHuntres.Autotrader.Core.DTO;
 
 namespace HashHunters.Autotrader.Core.Interfaces
 {
-    public class IUserRepository
+    public interface IUserRepository
     {
-        public object Login(LoginDTO loginDTO)
-        {
-            
-        }
+        User Login(LoginDTO loginDTO);
     }
 }

@@ -1,4 +1,4 @@
-﻿using HashHunters.MinerMonitor.Common.Extensions;
+﻿using HashHunters.Extensions;
 using System;
 using System.IO;
 using System.Text;

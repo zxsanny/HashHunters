@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace HashHunters.MinerMonitor.Common.Extensions
+namespace HashHunters.Extensions
 {
     public static class Enum<T> where T:struct
     {

@@ -3,13 +3,15 @@ using System.Runtime.InteropServices;
 using System.Security;
 using System.Text;
 
-namespace HashHunters.MinerMonitor.Common.Extensions
+namespace HashHunters.Extensions
 {
     public static class SecureStringExtensions
     {
-        public static byte[] ToBytes(this SecureString s, Encoding encoding)
+        public static byte[] ToBytes(this SecureString s, Encoding encoding = null)
         {
+            encoding = encoding ?? Encoding.UTF8;
             var chars = new Char[s.Length];
+            
             //For free resources after call
             var handleChars = GCHandle.Alloc(chars, GCHandleType.Pinned);
             try
@@ -43,7 +45,5 @@ namespace HashHunters.MinerMonitor.Common.Extensions
 
         public static SecureString ToSecureString(this byte[] bytes, Encoding encoding) =>
             encoding.GetString(bytes).ToSecureString();
-
-
     }
 }

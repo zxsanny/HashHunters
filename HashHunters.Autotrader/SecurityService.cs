@@ -1,18 +1,20 @@
 ﻿using HashHunters.Autotrader.Core.Interfaces;
 using HashHunters.Autotrader.Entities;
-using HashHunters.MinerMonitor.Common.Extensions;
+using HashHunters.Extensions;
 using HashHuntres.Autotrader.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using System;
 using System.IdentityModel.Tokens.Jwt;
-using System.Text;
+using System.Security;
+using System.Security.Claims;
 
 namespace HashHunters.Autotrader.Services
 {
     public class SecurityService : ISecurityService
     {
-        IConfiguration Configuration;
-        IHHCryptoProvider CryptoProvider;
+        IConfiguration Configuration { get; }
+        IHHCryptoProvider CryptoProvider { get; }
 
         public User CurrentUser { private get; set; }
 
@@ -43,14 +45,29 @@ namespace HashHunters.Autotrader.Services
                 ValidateIssuerSigningKey = true,
                 ValidIssuer = Configuration[ConfigurationKeys.Issuer],
                 ValidAudience = Configuration[ConfigurationKeys.Audience],
-                IssuerSigningKey = new SymmetricSecurityKey( CryptoProvider.Decrypt(Configuration[ConfigurationKeys.SecurityKey]).ToBytes(Encoding.UTF8))
+                IssuerSigningKey = new SymmetricSecurityKey(SecurityKey.ToBytes())
             };
         }
 
+        private SecureString SecurityKey => CryptoProvider.Decrypt(Configuration[ConfigurationKeys.SecurityKey]);
 
-        public JwtSecurityToken GetToken()
+        public JwtSecurityToken GetToken(User user)
         {
-            throw new System.NotImplementedException();
+            var claims = new[]
+           {
+                new Claim(JwtRegisteredClaimNames.Sub, user.Name),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+            };
+
+            var token = new JwtSecurityToken
+                (
+                issuer: Configuration[ConfigurationKeys.Issuer],
+                audience: Configuration[ConfigurationKeys.Audience],
+                expires: DateTime.UtcNow.AddDays(2),
+                notBefore: DateTime.UtcNow,
+                signingCredentials: new SigningCredentials(new SymmetricSecurityKey(SecurityKey.ToBytes()), SecurityAlgorithms.HmacSha256)
+                );
+            return token;
         }
     }
 }

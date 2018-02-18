@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2010
+VisualStudioVersion = 15.0.27130.2026
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashHunters.Common", "HashHunters.MinerMonitor.Common\HashHunters.Common.csproj", "{02E4220A-8609-4AEB-9267-5892BDB13ADD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashHunters.Extensions", "HashHunters.MinerMonitor.Common\HashHunters.Extensions.csproj", "{02E4220A-8609-4AEB-9267-5892BDB13ADD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashHunters.MinerMonitor.RigClient", "HashHunters.MinerMonitor.RigClient\HashHunters.MinerMonitor.RigClient.csproj", "{D4AC930F-927E-4E47-B426-DBF23F0D837C}"
 EndProject
@@ -18,6 +18,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashHunters.Autotrader.Core", "HashHunters.Autotrader.Core\HashHunters.Autotrader.Core.csproj", "{AC7A8AFB-8233-4BD7-B8BB-0F55D11FA08A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashHunters.Autotrader.Entities", "HashHunters.Autotrader.Entities\HashHunters.Autotrader.Entities.csproj", "{A4A1746A-0052-4397-A285-727AF84196D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashHunters.Autotrader.Repository", "HashHunters.Autotrader.Repository\HashHunters.Autotrader.Repository.csproj", "{75DD9228-64EC-4080-A450-EFB27ABE0439}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +55,10 @@ Global
 		{A4A1746A-0052-4397-A285-727AF84196D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A4A1746A-0052-4397-A285-727AF84196D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A4A1746A-0052-4397-A285-727AF84196D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75DD9228-64EC-4080-A450-EFB27ABE0439}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75DD9228-64EC-4080-A450-EFB27ABE0439}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75DD9228-64EC-4080-A450-EFB27ABE0439}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75DD9228-64EC-4080-A450-EFB27ABE0439}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

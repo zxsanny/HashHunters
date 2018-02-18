@@ -3,14 +3,14 @@ using Bittrex.Net.Objects;
 using HashHunters.Autotrader.Core.DTO;
 using HashHunters.Autotrader.Core.Interfaces;
 using HashHunters.Autotrader.Entities;
-using HashHunters.MinerMonitor.Common.Extensions;
+using HashHunters.Extensions;
 using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HashHunters.Autotrader
+namespace HashHunters.Autotrader.Services
 {
     public class BittrexBroker : IMarketBroker
     {

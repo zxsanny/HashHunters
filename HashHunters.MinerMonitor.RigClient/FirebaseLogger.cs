@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Linq;
 using System.Net;
 using FirebaseSharp.Portable;
 using FirebaseSharp.Portable.Interfaces;
-using HashHunters.MinerMonitor.Common.Extensions;
+using HashHunters.Extensions;
 
 namespace HashHunters.MinerMonitor.RigClient
 {

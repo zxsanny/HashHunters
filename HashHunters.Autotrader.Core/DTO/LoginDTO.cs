@@ -1,8 +1,10 @@
-﻿namespace HashHuntres.Autotrader.Web.Controllers
+﻿using System.Security;
+
+namespace HashHuntres.Autotrader.Core.DTO
 {
     public class LoginDTO
     {
-        public string User { get; set; }
-        public string Password { get; set; }
+        public string Name { get; set; }
+        public SecureString Password { get; set; }
     }
 }

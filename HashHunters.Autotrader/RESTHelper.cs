@@ -4,7 +4,7 @@ using System.Net.Http;
 using System.Reflection;
 using Newtonsoft.Json;
 
-namespace HashHunters.Autotrader
+namespace HashHunters.Autotrader.Services
 {
     public static class RESTHelper
     {

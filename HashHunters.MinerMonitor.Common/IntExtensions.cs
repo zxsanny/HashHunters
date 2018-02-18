@@ -1,4 +1,4 @@
-﻿namespace HashHunters.MinerMonitor.Common
+﻿namespace HashHunters.Extensions
 {
     public static class IntExtensions
     {

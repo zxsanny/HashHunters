@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HashHunters.MinerMonitor.Common.Extensions
+namespace HashHunters.Extensions
 {
     public static class DateTimeExtensions
     {

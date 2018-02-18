@@ -1,5 +1,6 @@
-using HashHunters.Autotrader;
+using Autofac;
 using HashHunters.Autotrader.Core.Interfaces;
+using HashHunters.Autotrader.Repository;
 using HashHunters.Autotrader.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -12,18 +13,27 @@ namespace HashHuntres.Autotrader.Web
 {
     public class Startup
     {
+        IConfiguration Configuration { get; }
+        IContainer Container { get; set; }
+
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
             services.AddLogging();
-            services.AddSingleton<IConfiguration>();
-            services.AddTransient<IMarketBroker, BittrexBroker>();
-            services.AddTransient<ISecurityService, SecurityService>();
-            
-            var serviceProvider = services.BuildServiceProvider();
-            var securityService = serviceProvider.GetService<ISecurityService>();
 
+            var builder = new ContainerBuilder();
+            builder.RegisterModule(new ServicesModule());
+            builder.RegisterModule(new RepositoryModule(Configuration.GetConnectionString("hhadmin")));
+
+            Container = builder.Build();
+
+            var securityService = Container.Resolve<ISecurityService>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options => options.TokenValidationParameters = securityService.GetTokenValidationParameters());
         }
