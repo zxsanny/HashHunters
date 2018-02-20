@@ -25,6 +25,8 @@ namespace HashHuntres.Autotrader.Web
             builder.RegisterModule(new ServicesModule());
 
             var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json", false, true).Build();
+            builder.Register(ctx => configuration).As<IConfigurationRoot>().SingleInstance();
+
             var connStr = configuration.GetConnectionString("hhadmin");
 
             builder.RegisterModule(new RepositoryModule(connStr));

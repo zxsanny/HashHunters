@@ -13,12 +13,12 @@ namespace HashHunters.Autotrader.Services
 {
     public class SecurityService : ISecurityService
     {
-        IConfiguration Configuration { get; }
+        IConfigurationRoot Configuration { get; }
         IHHCryptoProvider CryptoProvider { get; }
 
         public User CurrentUser { private get; set; }
 
-        public SecurityService(IConfiguration configuration, IHHCryptoProvider cryptoProvider)
+        public SecurityService(IConfigurationRoot configuration, IHHCryptoProvider cryptoProvider)
         {
             Configuration = configuration;
             CryptoProvider = cryptoProvider;
