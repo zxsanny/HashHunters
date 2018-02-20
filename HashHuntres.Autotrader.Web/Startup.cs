@@ -13,23 +13,21 @@ namespace HashHuntres.Autotrader.Web
 {
     public class Startup
     {
-        IConfiguration Configuration { get; }
         IContainer Container { get; set; }
-
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
             services.AddLogging();
-
+            
             var builder = new ContainerBuilder();
             builder.RegisterModule(new ServicesModule());
-            builder.RegisterModule(new RepositoryModule(Configuration.GetConnectionString("hhadmin")));
+
+            var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json", false, true).Build();
+            var connStr = configuration.GetConnectionString("hhadmin");
+
+            builder.RegisterModule(new RepositoryModule(connStr));
 
             Container = builder.Build();
 
