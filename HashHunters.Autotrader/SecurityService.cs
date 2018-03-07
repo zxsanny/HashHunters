@@ -35,8 +35,6 @@ namespace HashHunters.Autotrader.Services
 
         public TokenValidationParameters GetTokenValidationParameters()
         {
-            var cryptedKey = Configuration[ConfigurationKeys.SecurityKey];
-
             return new TokenValidationParameters
             {
                 ValidateIssuer = true,
@@ -49,21 +47,26 @@ namespace HashHunters.Autotrader.Services
             };
         }
 
-        private SecureString SecurityKey => CryptoProvider.Decrypt(Configuration[ConfigurationKeys.SecurityKey]);
+        //TODO: Do it in more secure way
+        private SecureString SecurityKey =>
+            Configuration[ConfigurationKeys.SecurityKey].ToSecureString();
 
         public JwtSecurityToken GetToken(User user)
         {
             var claims = new[]
-           {
+            {
                 new Claim(JwtRegisteredClaimNames.Sub, user.Name),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
+
+            int.TryParse(Configuration[ConfigurationKeys.TokenExpirationDays], out int expirationDays);
+            expirationDays = Math.Max(Math.Min(expirationDays, 10), 2);
 
             var token = new JwtSecurityToken
                 (
                 issuer: Configuration[ConfigurationKeys.Issuer],
                 audience: Configuration[ConfigurationKeys.Audience],
-                expires: DateTime.UtcNow.AddDays(2),
+                expires: DateTime.UtcNow.AddDays(expirationDays),
                 notBefore: DateTime.UtcNow,
                 signingCredentials: new SigningCredentials(new SymmetricSecurityKey(SecurityKey.ToBytes()), SecurityAlgorithms.HmacSha256)
                 );

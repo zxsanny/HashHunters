@@ -1,6 +1,7 @@
 ﻿using HashHunters.Autotrader.Entities;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Threading.Tasks;
 
 namespace HashHunters.Autotrader.Core.Interfaces
 {

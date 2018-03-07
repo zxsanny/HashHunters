@@ -3,6 +3,7 @@ using HashHunters.Autotrader.Entities;
 using HashHuntres.Autotrader.Core.DTO;
 using MongoDB.Driver;
 using System;
+using System.Threading.Tasks;
 
 namespace HashHunters.Autotrader.Repository
 {
@@ -17,9 +18,9 @@ namespace HashHunters.Autotrader.Repository
             CryptoProvider = cryptoProvider;
         }
 
-        public User Login(LoginDTO loginDTO)
+        public async Task<User> Login(LoginDto loginDTO)
         {
-            var user = Users.Find(x => x.Name == loginDTO.Name).FirstOrDefault();
+            var user = await Users.Find(x => x.Name == loginDTO.Name).SingleAsync();
             if (user == null)
             {
                 throw new ArgumentException($"User {loginDTO.Name} is not exists!");
