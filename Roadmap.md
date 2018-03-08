@@ -1,3 +1,6 @@
+# Minimal Value Product
+Trader helper. Basic chart view (Utilize tradingview), displaying trading posture on charts. Manual trading. Calculate and display indicators: MACD, MA, RSI, Bollinger bands. Calculate support and resistance levels. Autotrading - scalping trading, autoraising stop loss order, autosuggest sell and buy based on indicators and levels.
+
 # Roadmap
 
 | Rough Term | Milestone                                       | User Stories                                                 |
