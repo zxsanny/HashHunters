@@ -13,15 +13,15 @@ namespace HashHunters.Autotrader.Services
 {
     public class SecurityService : ISecurityService
     {
-        IConfigurationRoot Configuration { get; }
-        IHHCryptoProvider CryptoProvider { get; }
-
+        Lazy<IConfigurationRoot> LazyConfiguration;
+        IConfigurationRoot Configuration
+            => LazyConfiguration.Value;
+        
         public User CurrentUser { private get; set; }
 
-        public SecurityService(IConfigurationRoot configuration, IHHCryptoProvider cryptoProvider)
+        public SecurityService(Lazy<IConfigurationRoot> configuration)
         {
-            Configuration = configuration;
-            CryptoProvider = cryptoProvider;
+            LazyConfiguration = configuration;
         }
 
         public ExchangeKey GetKey(ExchangeEnum exchange)

@@ -1,4 +1,5 @@
-﻿using Bittrex.Net;
+﻿using Binance.Net;
+using Bittrex.Net;
 using Bittrex.Net.Objects;
 using HashHunters.Autotrader.Core.DTO;
 using HashHunters.Autotrader.Core.Interfaces;
@@ -16,6 +17,7 @@ namespace HashHunters.Autotrader.Services
     {
         IDatabase RedisDB;
         BittrexClient BittrexClient;
+        BinanceClient BinanceClient;
         ISecurityService SecurityService;
 
         public BittrexBroker(ISecurityService securityService)
