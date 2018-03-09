@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.IdentityModel.Tokens.Jwt;
+using System.Threading.Tasks;
 using HashHunters.Autotrader.Core.Interfaces;
 using HashHuntres.Autotrader.Core.DTO;
 using Microsoft.AspNetCore.Authorization;
@@ -34,13 +35,13 @@ namespace HashHuntres.Autotrader.Web.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("token")]
-        public IActionResult Post([FromBody]LoginDto loginDto)
+        public async Task<IActionResult> Post([FromBody]LoginDto loginDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
-            var user = UserRepository.Login(loginDto);
+            var user = await UserRepository.Login(loginDto);
             var token = new JwtSecurityTokenHandler().WriteToken(SecurityService.GetToken(user));
             return Ok(token);
         }

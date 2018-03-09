@@ -3,6 +3,7 @@ using HashHunters.Autotrader.Entities;
 using HashHuntres.Autotrader.Core.DTO;
 using MongoDB.Driver;
 using System;
+using System.Security;
 using System.Threading.Tasks;
 
 namespace HashHunters.Autotrader.Repository
@@ -32,6 +33,11 @@ namespace HashHunters.Autotrader.Repository
             }
 
             return user;
+        }
+
+        public Task<bool> CreateUserAsync(User user, SecureString password)
+        {
+            throw new NotImplementedException();
         }
     }
 }

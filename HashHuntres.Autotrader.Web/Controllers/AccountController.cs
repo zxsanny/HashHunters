@@ -1,8 +1,10 @@
 ﻿using HashHunters.Autotrader.Core.Interfaces;
+using HashHunters.Autotrader.Entities;
 using HashHuntres.Autotrader.Core.DTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Threading.Tasks;
 
@@ -39,23 +41,18 @@ namespace HashHuntres.Autotrader.Web.Controllers
         [HttpPost]
         public async Task<object> Register([FromBody] RegisterDto registerDto)
         {
-            var user = new IdentityUser
+            var user = new User
             {
-                UserName = model.Email,
-                Email = model.Email
+                Name = registerDto.Name,
+                Email = registerDto.Email
             };
-            var result = await UserRepository.CreateAsync(user, model.Password);
+            var result = await UserRepository.CreateUserAsync(user, registerDto.Password);
 
-            if (result.Succeeded)
+            if (!result)
             {
-                await _signInManager.SignInAsync(user, false);
-                return await GenerateJwtToken(model.Email, user);
+                throw new ApplicationException("UNKNOWN_ERROR");
             }
-
-            throw new ApplicationException("UNKNOWN_ERROR");
+            return SecurityService.GetToken(user);            
         }
-
-
-
     }
 }
