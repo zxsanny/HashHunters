@@ -1,12 +1,37 @@
-# Minimal Value Product
-Trader helper which provides 
- enhanced manual trading: autoraise stop loss levels, 
- autotrading based on indicators and support/resistance levels
- scalping trading.
-
-Basic chart view (Utilize tradingview), displaying trading posture on charts. Manual trading. Calculate and display indicators: MACD, MA, RSI, Bollinger bands. Calculate support and resistance levels. Autotrading - scalping trading, autoraising stop loss order, autosuggest sell and buy based on indicators and levels.
-
 # Roadmap
+## Stage 1 Minimal Value Product.
+
+#### Product
+
+Trader helper which provides 
+
+- Enhanced manual trading: trailing stop loss and stop-buy
+- Autotrading based on indicators and support/resistance levels (notification mode and real trading mode)
+- Scalping trading
+
+#### Target auditory
+
+Inner usage
+
+#### User Stories
+
+Store all possible currency pairs from currency exchanges. For MVP use one exchange, https://bittrex.com
+
+Choose first 200 most capitalized coins from API https://coinmarketcap.com + first 100 top volume from bittrex and store OHLC for them from bittrex automatically and periodically to mongodb capped collection.
+
+Coin search and display it on chart view. (Use and embed https://tradingview.com charts in iframe). If OHLC data didn't downloaded yet, download and store it.
+
+Display current buy position on charts (Via tradingview config for charts in iframe)
+
+Technical analysis (TA): Detecting market: bull or bear
+
+TA: Calculate and display indicators: MACD, MA, RSI, Bollinger bands.
+
+TA: Calculate support and resistance levels. 
+
+Trailing stop loss and trailing stop buy orders, settings for it
+
+Scalping trading, quick profit strategy and TA indicators strategy, using trailing stop loss and buy orders.
 
 | Rough Term | Milestone                                       | User Stories                                                 |
 | ---------- | :---------------------------------------------- | ------------------------------------------------------------ |
@@ -15,7 +40,7 @@ Basic chart view (Utilize tradingview), displaying trading posture on charts. Ma
 |            |                                                 | Backend: Autostoring OHLC data from trading platform (Bittrex) to mongodb capped collection. (Use Bittrex.net) System should look to the most cryptocurrencies by capitalization (use API coinmarketcap.com) and to all users settings, and automatically store all data to db |
 |            |                                                 | Backend: Utilize bittrex.net and provide buy and sell functionality<br />UI: View OHLC charts on user dashboard<br />Manual buy and sell<br />Display current position, buy and sell levels<br /> |
 |            |                                                 |                                                              |
-| Q3 2018    | Indicators, auto-orders and scalping            | Backend: Calculate and store basic indicators: <br />Bollinger bands, Standard deviation, Moving Average, MACD, parabolic SAR, RSI, CCI, Chaikin oscillator, OBV and others <br />UI: Display all of them on charts |
+| Q3 2018    | Indicators, auto-orders and scalping            | Backend: Calculate and store basic indicators: <br />- Bollinger bands,<br />- Standard deviation,<br />- Moving Average, MACD,<br />- parabolic SAR,<br />- Stochastic, RSI, Stochastic RSI<br />- CCI, <br />- Chaikin oscillator, <br />- OBV,<br />- EMA, SMA, KAMA<br />and others <br />UI: Display all of them on charts |
 |            |                                                 | Backend: Calculate support and resistance levels.<br />UI: Display support and resistance levels on charts |
 |            |                                                 | Backend: Autoset stop loss orders after buy. Autoraise stop loss to a bit lower then support level. Autoset take profit orders on resistance level. <br />UI: View stop loss levels, settings page for user, and in particular settings for scalping trading |
 |            |                                                 | Backend: Scalping trading, settings for scalping<br />UI: Display scalping trading levels, add user settings for scalping |
@@ -28,3 +53,6 @@ Basic chart view (Utilize tradingview), displaying trading posture on charts. Ma
 |            |                                                 |                                                              |
 | Q1 2019    | Neural network autotrading                      | Backend: Utilize Neural network for more precise forecasting<br />UI: Display neural network forecasting |
 
+# Competitors
+
+https://www.cryptohopper.com/
