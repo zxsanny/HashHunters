@@ -61,6 +61,20 @@ Investors, developers, businessmen, people who wants to make a profit from small
 
 # Competitors
 
+https://www.haasonline.com/
+
 https://www.cryptohopper.com/
+
+https://thecryptobot.com/
+
+https://cryptoworldevolution.trade/
+
+https://usitech-int.com/
+
+https://gekko.wizb.it
+
+https://gimmer.net/
+
+http://www.btcrobot.com/
 
 https://cryptotrader.org/
