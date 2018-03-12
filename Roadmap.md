@@ -41,6 +41,11 @@ Crypto geeks. People who has accounts on cryptoexchanges, but in despair after l
 | Fundamental analysis. For that create knowledge base for crypto projects and manually fill it. Knowledge base consists of:<br />Product team, how many and who: 0..10<br />Product uniqueness: 0..10<br />Product value: 0..10<br />Level of integration with other companies and what is this companies: 0..10<br />Coin features: <br />Protocol: 0..10 : POW = 0/POS = 10/POE=3/POI=3/ Tangle =10/ ...  <br />Smart contract support level: 0..10<br />Scalability: 0..10<br />Product roadmap and further plans: 0..10. <br />Calculate Fundamental Analysis result (FA indicator) |
 | News analysis. Search coin in google trends, scan thematic Facebook groups, twitter and telegram chats for specific coin. <br />Calculate News Analysis result (NA indicator) |
 | Calculate Total Trade Indicator (TTI) based on TA, FA and NA indicators. Based on historical data calculate relative weight of each indicators in tech analysis and also weights of fundamental and news analysis indicator. Do it for each trading pair separately. (Rewind history back, apply indicators, see results, compare with real, correct indicator weights in order to get more gain, and so on. ) |
+| Auditory attraction. View on the first page 'System in work': realtime trading by enhanced scalping strategy, and show this account balance chart |
+| Auditory attraction. Show 'Try it free for one week' on the first page where user should enter their email, password and API key(s) from exchange(s) (show help how to do it). Then analyze user assets, history, emulate history trading from the beginning with users funds and show 2 lines on chart: current balance changes, and balance if system was traded instead of user. |
+| Allow to user to setup % of their funds, which system can operate. - For user security reasons. And then user can rearrange this settings |
+| Monetization. For now I can propose several types of monetization:<br />1. % of trade profit (20% or 30% or 40%)<br />2. Constant initial payment + % of trade profit<br />3. Monthly const payment
+Discussable. |
 
 ## Stage 3 Wide target auditory and integrations
 
