@@ -5,13 +5,18 @@
 
 Trader helper which provides enhanced manual trading and several simple autotrading strategies based on technical analysis 
 
-#### Target auditory
+#### Target Auditory
 
 Inner usage
 
+#### Technology Stack
+
+Backend: C# ASP.Net core 2, MongoDB, SimpleInjector, Quartz.Net, ...
+Frontend: React, ...
+
 | User Stories                                                 |
 | ------------------------------------------------------------ |
-| Store all possible currency pairs from currency exchanges. For MVP use one exchange, https://bittrex.com (use https://github.com/JKorf/Bittrex.Net) |
+| Store all possible currency pairs from currency exchanges. For MVP use one exchange, https://bittrex.com (use https://github.com/JKorf/Bittrex.Net). For scheduling use Quartz.Net + Autofac.Quartz for dependency resolving |
 | Choose first 200 most capitalized coins from API https://coinmarketcap.com + first 100 top volume from bittrex and store OHLC for them from bittrex automatically and periodically to mongodb capped collection. |
 | Coin search and display it on chart view. (Use and embed https://tradingview.com charts in iframe). If OHLC data didn't downloaded yet, download and store it. |
 | Display current buy position on charts (Via tradingview config for charts in iframe) |
