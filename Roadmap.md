@@ -1,5 +1,5 @@
 # Roadmap
-## Stage 1 Minimal Value Product.
+## Stage 1 Minimum Value Product.
 
 #### Product
 
