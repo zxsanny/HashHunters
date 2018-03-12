@@ -58,6 +58,7 @@ Investors, developers, businessmen, people who wants to make a profit from small
 
 | User Stories                                                 |
 | ------------------------------------------------------------ |
+| Neural network as more precise forecasting source. Investigate first. |
 | Deposit money via bank card or bank transfer                 |
 | Giving debit cards using crypto card provider, such as tenx or monaco with autosending % of gains to it |
 | Possibility to liquidate all current deposit pressing one button to some crypto address (BTC/ETH/ADA/...) |
