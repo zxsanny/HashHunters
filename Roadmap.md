@@ -44,8 +44,7 @@ Crypto geeks. People who has accounts on cryptoexchanges, but in despair after l
 | Auditory attraction. View on the first page 'System in work': realtime trading by enhanced scalping strategy, and show this account balance chart |
 | Auditory attraction. Show 'Try it free for one week' on the first page where user should enter their email, password and API key(s) from exchange(s) (show help how to do it). Then analyze user assets, history, emulate history trading from the beginning with users funds and show 2 lines on chart: current balance changes, and balance if system was traded instead of user. |
 | Allow to user to setup % of their funds, which system can operate. - For user security reasons. And then user can rearrange this settings |
-| Monetization. For now I can propose several types of monetization:<br />1. % of trade profit (20% or 30% or 40%)<br />2. Constant initial payment + % of trade profit<br />3. Monthly const payment
-Discussable. |
+| Monetization. For now I can propose several types of monetization:<br />1. % of trade profit (20% or 30% or 40%)<br />2. Constant initial payment + % of trade profit<br />3. Monthly const payment<br />Discussable. |
 
 ## Stage 3 Wide target auditory and integrations
 
