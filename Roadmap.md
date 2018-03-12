@@ -11,7 +11,7 @@ Inner usage
 
 #### Technology Stack
 
-Backend: C# ASP.Net core 2, MongoDB, SimpleInjector, Quartz.Net, ...<br />
+Backend: C# ASP.Net core 2, MongoDB, Autofac, Quartz.Net, ...<br />
 Frontend: React, ...
 
 | User Stories                                                 |
