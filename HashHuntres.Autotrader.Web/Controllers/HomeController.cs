@@ -32,18 +32,5 @@ namespace HashHuntres.Autotrader.Web.Controllers
             return View();
         }
 
-        [AllowAnonymous]
-        [HttpPost]
-        [Route("token")]
-        public async Task<IActionResult> Post([FromBody]LoginDto loginDto)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-            var user = await UserRepository.Login(loginDto);
-            var token = new JwtSecurityTokenHandler().WriteToken(SecurityService.GetToken(user));
-            return Ok(token);
-        }
     }
 }

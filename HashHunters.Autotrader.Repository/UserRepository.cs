@@ -15,7 +15,7 @@ namespace HashHunters.Autotrader.Repository
 
         public UserRepository(IMongoDatabase mongoDatabase, IHHCryptoProvider cryptoProvider)
         {
-            Users = mongoDatabase.Get<User>();
+            Users = mongoDatabase.GetTypedCollection<User>();
             CryptoProvider = cryptoProvider;
         }
 

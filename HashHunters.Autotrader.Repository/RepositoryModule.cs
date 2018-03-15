@@ -22,6 +22,7 @@ namespace HashHunters.Autotrader.Repository
             ).As<IMongoDatabase>().SingleInstance();
 
             builder.RegisterType<UserRepository>().As<IUserRepository>();
+            builder.RegisterType<ChartRepository>().As<IChartRepository>();
 
             base.Load(builder);
         }

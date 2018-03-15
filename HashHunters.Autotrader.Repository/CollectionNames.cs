@@ -18,7 +18,7 @@ namespace HashHunters.Autotrader.Repository
             { typeof(User), CollectionName.Users }
         };
 
-        public static IMongoCollection<T> Get<T>(this IMongoDatabase mongoDatabase)
+        public static IMongoCollection<T> GetTypedCollection<T>(this IMongoDatabase mongoDatabase)
         {
             if (!CollectionTypes.ContainsKey(typeof(T)))
             {

@@ -5,7 +5,6 @@ using HashHunters.Autotrader.Core.DTO;
 using HashHunters.Autotrader.Core.Interfaces;
 using HashHunters.Autotrader.Entities;
 using HashHunters.Extensions;
-using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,21 +14,20 @@ namespace HashHunters.Autotrader.Services
 {
     public class BittrexBroker : IMarketBroker
     {
-        IDatabase RedisDB;
-        BittrexClient BittrexClient;
-        BinanceClient BinanceClient;
         ISecurityService SecurityService;
+        IChartRepository ChartRepository;
 
-        public BittrexBroker(ISecurityService securityService)
+        BittrexClient BittrexClient;
+        
+        public BittrexBroker(ISecurityService securityService, IChartRepository chartRepository)
         {
             SecurityService = securityService;
-            var redis = ConnectionMultiplexer.Connect("localhost");
-            RedisDB = redis.GetDatabase();
+            ChartRepository = chartRepository;
         }
 
-        public async Task<List<CandleData>> Get(CurrencyPair market, CandleInterval candleInterval, DateTime from)
+        public async Task<List<CandleData>> Get(CurrencyPair currencyPair, CandleInterval candleInterval, DateTime from)
         {
-            var res = await BittrexClient.GetCandlesAsync(market.ToBittrex(), candleInterval.ToBittrex());
+            var res = await BittrexClient.GetCandlesAsync(currencyPair.ToBittrex(), candleInterval.ToBittrex());
             return res.Result.Select(c => c.FromBittrex()).ToList();
         }
 
@@ -38,21 +36,15 @@ namespace HashHunters.Autotrader.Services
             var exchangeKey = SecurityService.GetKey(ExchangeEnum.Bittrex);
             BittrexClient = new BittrexClient(exchangeKey.ApiKey, exchangeKey.ApiSecret);
 
-            foreach (var market in CurrencyPairConstants.MainCurrencyPairs)
-            {
-                foreach (var interval in Enum<CandleInterval>.GetValues())
-                {
-                    var task = Get(market, interval, DateTime.Now.AddMonths(-1));
-                    task.Wait();
-                    var res = task.Result;
-                }
-            }
-        }
-
-        private async Task<long> WriteCandles(CurrencyPair market, CandleInterval interval, List<CandleData> list)
-        {
-            var entries = list.Select(c => new SortedSetEntry(c.ToString(), c.Timestamp.ToUnixTime())).ToArray();
-            return await RedisDB.SortedSetAddAsync($"{market}_{interval}", entries);
+            //foreach (var market in CurrencyPairConstants.MainCurrencyPairs)
+            //{
+            //    foreach (var interval in Enum<CandleInterval>.GetValues())
+            //    {
+            //        var task = Get(market, interval, DateTime.Now.AddMonths(-1));
+            //        task.Wait();
+            //        var res = task.Result;
+            //    }
+            //}
         }
     }
 

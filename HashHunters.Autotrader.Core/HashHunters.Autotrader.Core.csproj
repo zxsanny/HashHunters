@@ -53,6 +53,7 @@
     <Compile Include="DTO\CurrencyPair.cs" />
     <Compile Include="DTO\LoginDTO.cs" />
     <Compile Include="DTO\RegisterDto.cs" />
+    <Compile Include="Interfaces\IChartRepository.cs" />
     <Compile Include="Interfaces\ICryptoProvider.cs" />
     <Compile Include="Interfaces\IMarketBroker.cs" />
     <Compile Include="Interfaces\ISecurityService.cs" />

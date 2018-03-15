@@ -2,17 +2,23 @@
 
 namespace HashHunters.Autotrader.Core.DTO
 {
-    public enum CurrencyPair
+    public enum Currency
     {
-        BTC_USDT,
-        ETH_USDT,
-        ETH_BTC,
-        ADA_BTC,
-        XVG_BTC
+        USDT = 0,
+        BTC = 1,
+        ETH = 2,
+        ADA = 3,
+
     }
 
-    public static class CurrencyPairConstants
+    public struct CurrencyPair
     {
-        public static List<CurrencyPair> MainCurrencyPairs = new List<CurrencyPair> { CurrencyPair.BTC_USDT, CurrencyPair.ETH_USDT, CurrencyPair.ETH_BTC, CurrencyPair.ADA_BTC };
+        public Currency Currency;
+        public Currency BaseCurrency;
+
+        public override string ToString()
+        {
+            return $"{Currency}_{BaseCurrency}";
+        }
     }
 }
