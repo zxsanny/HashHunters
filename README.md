@@ -1,3 +1,2 @@
-# HashHunters Cryptotools
-Autotrading platform
+# HashHunters
 Mining monitoring RigControl
