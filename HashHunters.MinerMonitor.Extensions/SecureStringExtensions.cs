@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 using System.Security;
 using System.Text;
 
-namespace HashHunters.Extensions
+namespace HashHunters.MinerMonitor.Extensions
 {
     public static class SecureStringExtensions
     {

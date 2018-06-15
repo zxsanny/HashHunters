@@ -65,10 +65,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HashHunters.MinerMonitor.Common\HashHunters.Extensions.csproj">
-      <Project>{02E4220A-8609-4AEB-9267-5892BDB13ADD}</Project>
-      <Name>HashHunters.Extensions</Name>
-    </ProjectReference>
     <ProjectReference Include="..\HashHunters.MinerMonitor.RigClient\HashHunters.MinerMonitor.RigClient.csproj">
       <Project>{D4AC930F-927E-4E47-B426-DBF23F0D837C}</Project>
       <Name>HashHunters.MinerMonitor.RigClient</Name>

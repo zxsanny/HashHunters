@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using HashHunters.MinerMonitor.Common;
 using HashHunters.MinerMonitor.RigClient;
 using NUnit.Framework;
 

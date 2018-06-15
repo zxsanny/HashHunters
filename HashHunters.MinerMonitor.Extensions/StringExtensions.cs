@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace HashHunters.MinerMonitor.Common.Extensions
+namespace HashHunters.MinerMonitor.Extensions
 {
     public static class StringExtensions
     {

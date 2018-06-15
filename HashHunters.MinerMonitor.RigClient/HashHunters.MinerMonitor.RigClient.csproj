@@ -117,12 +117,6 @@
     <None Include="Properties\app.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HashHunters.MinerMonitor.Common\HashHunters.Extensions.csproj">
-      <Project>{02E4220A-8609-4AEB-9267-5892BDB13ADD}</Project>
-      <Name>HashHunters.Extensions</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
@@ -133,6 +127,12 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HashHunters.MinerMonitor.Extensions\HashHunters.MinerMonitor.Extensions.csproj">
+      <Project>{02E4220A-8609-4AEB-9267-5892BDB13ADD}</Project>
+      <Name>HashHunters.MinerMonitor.Extensions</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

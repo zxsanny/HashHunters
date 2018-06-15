@@ -1,7 +1,7 @@
-﻿using HashHunters.Extensions;
-using System;
+﻿using System;
 using System.IO;
 using System.Text;
+using HashHunters.MinerMonitor.Extensions;
 
 namespace HashHunters.MinerMonitor.RigClient
 {

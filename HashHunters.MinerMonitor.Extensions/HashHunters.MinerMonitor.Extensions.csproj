@@ -7,8 +7,8 @@
     <ProjectGuid>{02E4220A-8609-4AEB-9267-5892BDB13ADD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HashHunters.MinerMonitor.Common</RootNamespace>
-    <AssemblyName>HashHunters.MinerMonitor.Common</AssemblyName>
+    <RootNamespace>HashHunters.MinerMonitor.Extensions</RootNamespace>
+    <AssemblyName>HashHunters.MinerMonitor.Extensions</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

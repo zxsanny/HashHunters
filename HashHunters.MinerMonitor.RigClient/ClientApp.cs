@@ -224,7 +224,6 @@ namespace HashHunters.MinerMonitor.RigClient
                             for (int i = 0; i < temp.Length; i++)
                             {
                                 stats.Temps.Add(temp[i]);
-                                stats.FanSpeeds.Add(temp[i + 1]);
                                 i++;
                                 tempRow++;
                             }
