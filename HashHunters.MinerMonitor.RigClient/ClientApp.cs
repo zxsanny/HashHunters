@@ -124,23 +124,22 @@ namespace HashHunters.MinerMonitor.RigClient
         {
             // Miner stats
             public string Version;
-            public string TotalHashrate;
-            public string TotalDualHashrate;
-            public List<string> hashrates;
-            public List<string> DcrHashrates;
-            public List<string> Temps;
-            public List<string> FanSpeeds;
-            public Boolean IsOnline;
-            public string Uptime;
-
-            // Exception
-            public Exception Exception;
+            public int TotalHashrate;
+            public List<int> Hashrates;
+            public TimeSpan Uptime;
 
             // Pool stats
             public int Accepted;
             public int Rejected;
-            public int DualAccepted;
-            public int DualRejected;
+
+            // Exception
+            public Exception Exception;
+
+            public Stats()
+            {
+                Hashrates = new List<int>();
+                Exception = null;
+            }
         }
 
         class EthMonJsonTemplate
@@ -153,21 +152,7 @@ namespace HashHunters.MinerMonitor.RigClient
 
         private Stats GetStats()
         {
-            var stats = new Stats()
-            {
-                IsOnline = false,
-                Exception = null,
-                Uptime = "",
-                Version = "",
-                hashrates = new List<string>(),
-                DcrHashrates = new List<string>(),
-                Temps = new List<string>(),
-                FanSpeeds = new List<string>(),
-                DualAccepted = 0,
-                DualRejected = 0,
-                TotalDualHashrate = ""
-            };
-
+            var stats = new Stats();
             try
             {
                 using (var client = new TcpClient())
@@ -189,54 +174,19 @@ namespace HashHunters.MinerMonitor.RigClient
                         var result = JsonConvert.DeserializeObject<EthMonJsonTemplate>(_returndata);
 
                         stats.Version = result.result[0]; // Version
-                        stats.Uptime = result.result[1]; // Uptime
+                        stats.Uptime = TimeSpan.FromMinutes(int.Parse(result.result[1]));
 
-                        string[] minerStats = result.result[2].Split(';');
-                        stats.TotalHashrate = minerStats[0];
+                        var minerStats = result.result[2].Split(';');
+                        stats.TotalHashrate = int.Parse(minerStats[0]);
                         stats.Accepted = Int32.Parse(minerStats[1]);
                         stats.Rejected = Int32.Parse(minerStats[2]);
 
                         // Dual Stats
-                        string[] dualStats = result.result[4].Split(';');
-                        stats.TotalDualHashrate = dualStats[0];
-                        stats.DualAccepted = Int32.Parse(dualStats[1]);
-                        stats.DualRejected = Int32.Parse(dualStats[2]);
-
-                        string[] hashrates = result.result[3].Split(';'); // ETH Hashrates
-
-                        for (int i = 0; i < hashrates.Length; i++)
-                        {
-                            stats.hashrates.Add(hashrates[i]);
-                        }
-
-                        string[] dcrHashrates = result.result[5].Split(';'); // DCR Hashrates
-
-                        for (int i = 0; i < dcrHashrates.Length; i++)
-                        {
-                            stats.DcrHashrates.Add(dcrHashrates[i]);
-                        }
-
-                        // Temps and fan speeds
-                        string[] temp = result.result[6].Split(';');
-                        try
-                        {
-                            int tempRow = 0;
-                            for (int i = 0; i < temp.Length; i++)
-                            {
-                                stats.Temps.Add(temp[i]);
-                                i++;
-                                tempRow++;
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            FileLogger.LogError(ex);
-                        }
-
+                        stats.Hashrates = result.result[3].Split(';')
+                            .Select(x => int.Parse(x)).ToList(); // ETH Hashrates
+                        
                         // Close socket
                         client.Close();
-                        
-                        stats.IsOnline = true; // Online
                     }
                 }
             }
