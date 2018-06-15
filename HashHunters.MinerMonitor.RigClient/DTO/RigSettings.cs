@@ -32,13 +32,10 @@ namespace HashHunters.MinerMonitor.RigClient.DTO
             Intervals = intervals ?? new List<TimeInterval> {new TimeInterval()};
         }
 
-        public TimeSpan? GetCurrentMinimumInterval()
-        {
-            var activeIntervals = Intervals.Where(i => i.GetIsActiveNow()).ToList();
-            if (!activeIntervals.Any())
-                return null;
-            return activeIntervals.Min(x => x.GetInterval());
-        }
+        public TimeSpan? MinimalActiveInterval
+            => Intervals.Where(i => i.IsActiveNow)
+                .Select(x => x.Interval)
+                .OrderBy(x => x).FirstOrDefault();
 
         public override bool Equals(object obj)
         {
@@ -105,8 +102,7 @@ namespace HashHunters.MinerMonitor.RigClient.DTO
             End = end;
         }
 
-        public TimeSpan GetInterval() => End.Subtract(Start);
-
-        public bool GetIsActiveNow() => DateTime.Now.TimeOfDay > Start && DateTime.Now.TimeOfDay < End;
+        public TimeSpan Interval => End.Subtract(Start);
+        public bool IsActiveNow => DateTime.Now.TimeOfDay > Start && DateTime.Now.TimeOfDay < End;
     }
 }

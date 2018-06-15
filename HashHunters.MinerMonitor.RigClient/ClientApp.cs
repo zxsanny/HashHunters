@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Sockets;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using HashHunters.MinerMonitor.RigClient.DTO;
+using Newtonsoft.Json;
 
 namespace HashHunters.MinerMonitor.RigClient
 {
@@ -40,6 +43,7 @@ namespace HashHunters.MinerMonitor.RigClient
                 while (true)
                 {
                     Logger.HealthCheck();
+                    Logger.LogMinerStats(GetStats());
                     MinersCheck();
                     Thread.Sleep(20000);
                 }
@@ -56,7 +60,7 @@ namespace HashHunters.MinerMonitor.RigClient
                 var minerConfig = miner.Value.Select(mc => new
                 {
                     Config = mc,
-                    MinInterval = mc.GetCurrentMinimumInterval()
+                    MinInterval = mc.MinimalActiveInterval
                 })
                 .Where(x => x.MinInterval != null)
                 .OrderBy(x => x.MinInterval).FirstOrDefault()?.Config;
@@ -81,14 +85,13 @@ namespace HashHunters.MinerMonitor.RigClient
         {
             foreach (var p in processes)
             {
-                Console.WriteLine($"{p.ProcessName} [PID: {p.Id}] stopped!");
+                FileLogger.LogInfo($"{p.ProcessName} [PID: {p.Id}] stopped!");
                 p.Kill();
             }
         }
 
         private static void RunMiner(string programName, MinerConfig minerConfig)
         {
-            //EventHub.SendEvent(he);
             try
             {
                 var process = new Process
@@ -103,12 +106,10 @@ namespace HashHunters.MinerMonitor.RigClient
                 process.Start();
                 process.PriorityClass = ProcessPriorityClass.High;
                 Console.WriteLine($"{programName} started!");
-                //EventHub.SendEvent(he);
             }
             catch (Exception e)
             {
-                Console.WriteLine($"Starting {programName} failed! Error: {Environment.NewLine}{e}");
-                //EventHub.SendEvent(he);
+                FileLogger.LogInfo($"Starting {programName} failed! Error: {Environment.NewLine}{e}");
             }
         }
 
@@ -116,6 +117,137 @@ namespace HashHunters.MinerMonitor.RigClient
         {
             FileLogger.LogInfo("Service stops, Cancel token activated");
             CancelTokenSource.Cancel();
+        }
+
+
+        public class Stats
+        {
+            // Miner stats
+            public string Version;
+            public string TotalHashrate;
+            public string TotalDualHashrate;
+            public List<string> hashrates;
+            public List<string> DcrHashrates;
+            public List<string> Temps;
+            public List<string> FanSpeeds;
+            public Boolean IsOnline;
+            public string Uptime;
+
+            // Exception
+            public Exception Exception;
+
+            // Pool stats
+            public int Accepted;
+            public int Rejected;
+            public int DualAccepted;
+            public int DualRejected;
+        }
+
+        class EthMonJsonTemplate
+        {
+            public int id { get; set; }
+            public string error { get; set; }
+            public List<string> result { get; set; }
+        }
+
+
+        private Stats GetStats()
+        {
+            var stats = new Stats()
+            {
+                IsOnline = false,
+                Exception = null,
+                Uptime = "",
+                Version = "",
+                hashrates = new List<string>(),
+                DcrHashrates = new List<string>(),
+                Temps = new List<string>(),
+                FanSpeeds = new List<string>(),
+                DualAccepted = 0,
+                DualRejected = 0,
+                TotalDualHashrate = ""
+            };
+
+            try
+            {
+                using (var client = new TcpClient())
+                {
+                    if (client.ConnectAsync("localhost", 3333).Wait(5000))
+                    {
+                        var serverStream = client.GetStream();
+                        byte[] bytes = Encoding.ASCII.GetBytes("{\"id\":0,\"jsonrpc\":\"2.0\",\"method\":\"miner_getstat1\"}");
+                        serverStream.Write(bytes, 0, bytes.Length);
+                        serverStream.Flush();
+
+                        var inStream = new byte[client.ReceiveBufferSize];
+                        serverStream.Read(inStream, 0, client.ReceiveBufferSize);
+                        var _returndata = Encoding.ASCII.GetString(inStream);
+
+                        if (_returndata.Length == 0)
+                            throw new Exception("Invalid data");
+
+                        var result = JsonConvert.DeserializeObject<EthMonJsonTemplate>(_returndata);
+
+                        stats.Version = result.result[0]; // Version
+                        stats.Uptime = result.result[1]; // Uptime
+
+                        string[] minerStats = result.result[2].Split(';');
+                        stats.TotalHashrate = minerStats[0];
+                        stats.Accepted = Int32.Parse(minerStats[1]);
+                        stats.Rejected = Int32.Parse(minerStats[2]);
+
+                        // Dual Stats
+                        string[] dualStats = result.result[4].Split(';');
+                        stats.TotalDualHashrate = dualStats[0];
+                        stats.DualAccepted = Int32.Parse(dualStats[1]);
+                        stats.DualRejected = Int32.Parse(dualStats[2]);
+
+                        string[] hashrates = result.result[3].Split(';'); // ETH Hashrates
+
+                        for (int i = 0; i < hashrates.Length; i++)
+                        {
+                            stats.hashrates.Add(hashrates[i]);
+                        }
+
+                        string[] dcrHashrates = result.result[5].Split(';'); // DCR Hashrates
+
+                        for (int i = 0; i < dcrHashrates.Length; i++)
+                        {
+                            stats.DcrHashrates.Add(dcrHashrates[i]);
+                        }
+
+                        // Temps and fan speeds
+                        string[] temp = result.result[6].Split(';');
+                        try
+                        {
+                            int tempRow = 0;
+                            for (int i = 0; i < temp.Length; i++)
+                            {
+                                stats.Temps.Add(temp[i]);
+                                stats.FanSpeeds.Add(temp[i + 1]);
+                                i++;
+                                tempRow++;
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            FileLogger.LogError(ex);
+                        }
+
+                        // Close socket
+                        client.Close();
+                        
+                        stats.IsOnline = true; // Online
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                stats.Exception = ex;
+                FileLogger.LogError(ex);
+            }
+
+            return stats;
         }
     }
 }

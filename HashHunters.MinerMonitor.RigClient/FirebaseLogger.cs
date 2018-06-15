@@ -3,6 +3,7 @@ using System.Net;
 using FirebaseSharp.Portable;
 using FirebaseSharp.Portable.Interfaces;
 using HashHunters.Extensions;
+using static HashHunters.MinerMonitor.RigClient.ClientApp;
 
 namespace HashHunters.MinerMonitor.RigClient
 {
@@ -21,6 +22,11 @@ namespace HashHunters.MinerMonitor.RigClient
         public void HealthCheck()
         {
             Update("HealthCheck", DateTime.Now.ToNice());
+        }
+
+        public void LogMinerStats(Stats stats)
+        {
+            Update("MinerStats", stats);
         }
 
         public void ServiceStart()

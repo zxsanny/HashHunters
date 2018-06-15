@@ -4,5 +4,6 @@
     {
         void ServiceStart();
         void HealthCheck();
+        void LogMinerStats(ClientApp.Stats stats);
     }
 }
