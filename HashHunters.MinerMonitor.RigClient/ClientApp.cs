@@ -31,8 +31,6 @@ namespace HashHunters.MinerMonitor.RigClient
         {
             ConfigProvider = configProvider;
             Logger = logger;
-
-            var ipEndPoint = ConfigProvider.IPEndPoint;
         }
 
         public void Run()
