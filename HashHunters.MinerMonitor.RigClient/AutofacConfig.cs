@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using Autofac.Core;
-using HashHunters.MinerMonitor.RigClient;
 
 namespace HashHunters.MinerMonitor.RigClient
 {

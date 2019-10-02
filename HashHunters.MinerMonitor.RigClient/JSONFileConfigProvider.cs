@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using HashHunters.MinerMonitor.RigClient.DTO;
-using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json;
 
 namespace HashHunters.MinerMonitor.RigClient
